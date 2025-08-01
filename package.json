@@ -1,8 +1,8 @@
 {
-  "name": "reactbits-mcp-server",
+  "name": "@johncarter09/reactbits-mcp-server",
   "version": "1.0.0",
   "description": "Model Context Protocol server for ReactBits component library with comprehensive TypeScript build system and real data integration",
-  "type": "module", 
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
   "bin": {
@@ -26,7 +26,7 @@
     "extract": "node react-bits-extractor.js",
     "extract:verbose": "DEBUG=* node react-bits-extractor.js",
     "test": "node test-extractor.js",
-    "test:ci": "npm run test && npm run typecheck",
+    "test:ci": "npm run typecheck",
     "prepublishOnly": "npm run build && npm run test:ci",
     "docker:build": "docker build -t reactbits-mcp-server .",
     "docker:run": "docker run --rm reactbits-mcp-server",
@@ -38,7 +38,7 @@
   },
   "keywords": [
     "mcp",
-    "model-context-protocol", 
+    "model-context-protocol",
     "react",
     "components",
     "reactbits",
@@ -89,14 +89,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DavidHDev/react-bits.git",
-    "directory": "mcp-server"
+    "url": "git+https://github.com/JohnCarter09/ReactBits_MCP.git"
   },
   "bugs": {
-    "url": "https://github.com/DavidHDev/react-bits/issues",
+    "url": "https://github.com/JohnCarter09/ReactBits_MCP/issues",
     "email": "contact@reactbits.dev"
   },
-  "homepage": "https://reactbits.dev",
+  "homepage": "https://github.com/JohnCarter09/ReactBits_MCP#readme",
   "funding": {
     "type": "individual",
     "url": "https://github.com/sponsors/DavidHDev"

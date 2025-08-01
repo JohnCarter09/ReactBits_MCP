@@ -1,5 +1,10 @@
 # ReactBits MCP Server
 
+[![NPM Version](https://img.shields.io/npm/v/@johncarter09/reactbits-mcp-server)](https://www.npmjs.com/package/@johncarter09/reactbits-mcp-server)
+[![NPM Downloads](https://img.shields.io/npm/dm/@johncarter09/reactbits-mcp-server)](https://www.npmjs.com/package/@johncarter09/reactbits-mcp-server)
+[![GitHub Issues](https://img.shields.io/github/issues/JohnCarter09/ReactBits_MCP)](https://github.com/JohnCarter09/ReactBits_MCP/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A production-ready [Model Context Protocol](https://modelcontextprotocol.io) server for browsing and retrieving React components from [ReactBits.dev](https://reactbits.dev) with comprehensive TypeScript support, real data integration, and advanced deployment capabilities.
 
 ## 🚀 Features
@@ -17,7 +22,7 @@ A production-ready [Model Context Protocol](https://modelcontextprotocol.io) ser
 - **📈 Monitoring**: Built-in health checks, Prometheus metrics, and Grafana dashboards
 
 ### Deployment Options
-- **📦 NPM Package**: Global or local installation with `npm install -g reactbits-mcp-server`
+- **📦 NPM Package**: Global or local installation with `npm install -g @johncarter09/reactbits-mcp-server`
 - **🐳 Docker Images**: Multi-architecture support (AMD64, ARM64) with security hardening
 - **☁️ Cloud Ready**: Production-grade configuration for AWS, GCP, Azure, and Kubernetes
 
@@ -38,7 +43,7 @@ docker-compose up -d
 ### NPM Installation
 ```bash
 # Install globally
-npm install -g reactbits-mcp-server
+npm install -g @johncarter09/reactbits-mcp-server
 
 # Run the server
 reactbits-mcp-server
