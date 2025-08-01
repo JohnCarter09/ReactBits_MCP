@@ -307,4 +307,4 @@ MIT © [ReactBits Team](https://reactbits.dev)
 
 ---
 
-*Built with ❤️ by the ReactBits team*
+*Built with ❤️ by John Carter*
