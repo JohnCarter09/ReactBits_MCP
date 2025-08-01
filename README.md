@@ -292,7 +292,7 @@ MIT © [ReactBits Team](https://reactbits.dev)
 ## 🙏 Acknowledgments
 
 - [Model Context Protocol](https://modelcontextprotocol.io) by Anthropic
-- [ReactBits.dev](https://reactbits.dev) component library
+- [ReactBits.dev](https://reactbits.dev) component library. All credit to the creator of ReactBits
 - TypeScript and Node.js communities
 
 ---
