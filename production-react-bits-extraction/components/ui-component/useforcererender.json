@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "name": "UseForceRerender",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:29.414Z"
+  },
+  "source": {
+    "filePath": "src/hooks/useForceRerender.js",
+    "sourceCode": "import { useState, useCallback } from 'react';\n\nconst useForceRerender = () => {\n  const [key, setKey] = useState(0);\n\n  const forceRerender = useCallback(() => {\n    setKey(prevKey => prevKey + 1);\n  }, []);\n\n  return [key, forceRerender];\n};\n\nexport default useForceRerender;",
+    "fileSize": 277
+  },
+  "analysis": {
+    "dependencies": [
+      "react"
+    ],
+    "exports": [
+      "useForceRerender"
+    ],
+    "imports": [
+      {
+        "statement": "{ useState, useCallback }",
+        "from": "react",
+        "isExternal": true
+      }
+    ],
+    "hooks": [
+      "useState",
+      "useCallback",
+      "useForceRerender"
+    ],
+    "features": [
+      "stateful",
+      "performance-optimized"
+    ],
+    "complexity": {
+      "level": "moderate",
+      "score": 21,
+      "metrics": {
+        "lines": 13,
+        "dependencies": 1,
+        "hooks": 6,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

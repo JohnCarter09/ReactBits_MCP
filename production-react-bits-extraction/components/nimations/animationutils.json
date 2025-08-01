@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "name": "AnimationUtils",
+    "category": "nimations",
+    "variant": "js-css",
+    "priority": 7,
+    "extractedAt": "2025-08-01T16:32:51.773Z"
+  },
+  "source": {
+    "filePath": "src/utils/animationUtils.js",
+    "sourceCode": "export const map = (num, in_min, in_max, out_min, out_max) => {\n  return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;\n};\n\nexport const lerp = (start, end, amt) => {\n  return (1 - amt) * start + amt * end;\n};\n\nexport const getMousePos = (e) => {\n  return {\n    x: e.clientX,\n    y: e.clientY\n  };\n};\n\nexport const calcWinsize = () => {\n  return {\n    width: window.innerWidth,\n    height: window.innerHeight\n  };\n};\n\nexport const getRandomNumber = (min, max) => {\n  return Math.random() * (max - min) + min;\n};\n",
+    "fileSize": 535
+  },
+  "analysis": {
+    "dependencies": [],
+    "exports": [
+      "map",
+      "lerp",
+      "getMousePos",
+      "calcWinsize",
+      "getRandomNumber"
+    ],
+    "imports": [],
+    "hooks": [
+      "usePos"
+    ],
+    "features": [],
+    "complexity": {
+      "level": "simple",
+      "score": 6,
+      "metrics": {
+        "lines": 26,
+        "dependencies": 0,
+        "hooks": 1,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

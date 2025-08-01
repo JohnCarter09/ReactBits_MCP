@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "name": "CodeOptions",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:08.342Z"
+  },
+  "source": {
+    "filePath": "src/components/code/CodeOptions.jsx",
+    "sourceCode": "import { Children, useMemo } from \"react\";\nimport {\n  Tabs,\n  Select,\n  Flex,\n  Text,\n  Icon,\n  Box,\n  Portal,\n  createListCollection,\n} from \"@chakra-ui/react\";\nimport { FiCode } from \"react-icons/fi\";\nimport { RiTailwindCssFill, RiEmotionSadLine } from \"react-icons/ri\";\nimport { useLanguage } from \"../context/LanguageContext/useLanguage\";\n\nexport const CSSTab = ({ children }) => <>{children}</>;\nexport const TailwindTab = ({ children }) => <>{children}</>;\nexport const TSCSSTab = ({ children }) => <>{children}</>;\nexport const TSTailwindTab = ({ children }) => <>{children}</>;\n\nconst TAB_STYLE_PROPS = {\n  flex: \"0 0 auto\",\n  border: \"1px solid #392e4e\",\n  borderRadius: \"10px\",\n  fontSize: \"14px\",\n  h: 9,\n  px: 4,\n  color: \"#ffffff\",\n  justifyContent: \"center\",\n  _hover: { bg: \"#271E37\" },\n  _selected: { bg: \"#170D27\", color: \"#B19EEF\" },\n};\n\nconst CodeOptions = ({ children }) => {\n  const { languagePreset, setLanguagePreset } = useLanguage();\n  const currentLang = languagePreset || \"JS\";\n\n  const buckets = { JS: { css: null, tailwind: null }, TS: { css: null, tailwind: null } };\n  Children.forEach(children, (child) => {\n    if (!child) return;\n    if (child.type === CSSTab) buckets.JS.css = child;\n    if (child.type === TailwindTab) buckets.JS.tailwind = child;\n    if (child.type === TSCSSTab) buckets.TS.css = child;\n    if (child.type === TSTailwindTab) buckets.TS.tailwind = child;\n  });\n\n  const renderContent = (variant) => {\n    const node = currentLang === \"JS\" ? buckets.JS[variant] : buckets.TS[variant];\n    return node?.props?.children ? (\n      node\n    ) : (\n      <Flex alignItems=\"center\" gap={2} my={6} color=\"#a1a1aa\">\n        <Text>Nothing here yet!</Text>\n        <Icon as={RiEmotionSadLine} />\n      </Flex>\n    );\n  };\n\n  const langCollection = useMemo(\n    () => createListCollection({ items: [\"JS\", \"TS\"] }),\n    []\n  );\n\n  const LanguageSelect = (\n    <Select.Root\n      collection={langCollection}\n      value={[currentLang]}\n      onValueChange={({ value }) => setLanguagePreset(value[0])}\n      size=\"sm\"\n    >\n      <Select.HiddenSelect />\n      <Select.Control>\n        <Select.Trigger\n          fontSize=\"14px\"\n          h={8}\n          w={16}\n          bg=\"#060010\"\n          border=\"1px solid #392e4e\"\n          borderRadius=\"10px\"\n        >\n          <Select.ValueText fontSize=\"14px\" />\n        </Select.Trigger>\n        <Select.IndicatorGroup>\n          <Select.Indicator />\n        </Select.IndicatorGroup>\n      </Select.Control>\n\n      <Portal>\n        <Select.Positioner>\n          <Select.Content\n            bg=\"#060010\"\n            border=\"1px solid #392e4e\"\n            borderRadius=\"10px\"\n          >\n            {langCollection.items.map((lang) => (\n              <Select.Item\n                key={lang}\n                item={lang}\n                fontSize=\"14px\"\n                borderRadius=\"10px\"\n                cursor=\"pointer\"\n                _highlighted={{ bg: \"#271E37\" }}\n              >\n                <Select.ItemText>{lang}</Select.ItemText>\n                <Select.ItemIndicator />\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Positioner>\n      </Portal>\n    </Select.Root>\n  );\n\n  return (\n    <Tabs.Root mt={4} w=\"100%\" variant=\"plain\" defaultValue=\"default\">\n      <Tabs.List\n        mb={2}\n        w=\"100%\"\n        display=\"flex\"\n        alignItems=\"center\"\n        gap={2}\n      >\n        <Flex gap={2}>\n          <Tabs.Trigger value=\"default\" {...TAB_STYLE_PROPS}>\n            <Icon as={FiCode} /> Default\n          </Tabs.Trigger>\n          <Tabs.Trigger value=\"tailwind\" {...TAB_STYLE_PROPS}>\n            <Flex alignItems=\"center\" gap={2}>\n              <Icon as={RiTailwindCssFill} /> Tailwind\n            </Flex>\n          </Tabs.Trigger>\n        </Flex>\n\n        <Box ml=\"auto\">{LanguageSelect}</Box>\n      </Tabs.List>\n\n      <Tabs.Content pt={0} value=\"default\">{renderContent(\"css\")}</Tabs.Content>\n      <Tabs.Content pt={0} value=\"tailwind\">{renderContent(\"tailwind\")}</Tabs.Content>\n    </Tabs.Root>\n  );\n};\n\nexport default CodeOptions;\n",
+    "fileSize": 4082
+  },
+  "analysis": {
+    "dependencies": [
+      "react",
+      "@chakra-ui/react",
+      "react-icons/fi",
+      "react-icons/ri",
+      "../context/LanguageContext/useLanguage"
+    ],
+    "exports": [
+      "CSSTab",
+      "TailwindTab",
+      "TSCSSTab",
+      "TSTailwindTab",
+      "CodeOptions"
+    ],
+    "imports": [
+      {
+        "statement": "{ Children, useMemo }",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{\n  Tabs,\n  Select,\n  Flex,\n  Text,\n  Icon,\n  Box,\n  Portal,\n  createListCollection,\n}",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ FiCode }",
+        "from": "react-icons/fi",
+        "isExternal": true
+      },
+      {
+        "statement": "{ RiTailwindCssFill, RiEmotionSadLine }",
+        "from": "react-icons/ri",
+        "isExternal": true
+      },
+      {
+        "statement": "{ useLanguage }",
+        "from": "../context/LanguageContext/useLanguage",
+        "isExternal": false
+      }
+    ],
+    "hooks": [
+      "useMemo",
+      "useLanguage"
+    ],
+    "features": [
+      "performance-optimized",
+      "portal-based"
+    ],
+    "complexity": {
+      "level": "moderate",
+      "score": 47,
+      "metrics": {
+        "lines": 144,
+        "dependencies": 5,
+        "hooks": 5,
+        "conditionals": 5
+      }
+    },
+    "stylingApproach": [
+      "tailwind"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

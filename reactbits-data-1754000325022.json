@@ -1,0 +1,13 @@
+{
+  "homepage": {
+    "error": "page.waitForTimeout is not a function"
+  },
+  "components": [],
+  "navigation": [],
+  "metadata": {
+    "scrapedAt": "2025-07-31T22:18:45.019Z",
+    "totalComponents": 0,
+    "duration": 2.5,
+    "scraper": "ReactBits Scraper v1.0"
+  }
+}

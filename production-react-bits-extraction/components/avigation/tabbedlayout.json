@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "name": "TabbedLayout",
+    "category": "avigation",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:12.462Z"
+  },
+  "source": {
+    "filePath": "src/components/common/TabbedLayout.jsx",
+    "sourceCode": "import React from \"react\";\nimport { Tabs, Icon, Flex } from \"@chakra-ui/react\";\nimport { FiCode, FiEye, FiHeart, FiTerminal } from \"react-icons/fi\";\nimport ContributionSection from \"./GitHub/ContributionSection\";\n\nconst TAB_STYLE_PROPS = {\n  flex: \"0 0 auto\",\n  border: \"1px solid #392e4e\",\n  borderRadius: \"10px\",\n  fontSize: \"14px\",\n  h: 9,\n  px: 4,\n  color: \"#ffffff\",\n  justifyContent: \"center\",\n  _hover: { bg: \"#271E37\" },\n  _selected: { bg: \"#170D27\", color: \"#B19EEF\" },\n};\n\nconst TabbedLayout = ({ children, className }) => {\n  const contentMap = {\n    PreviewTab: null,\n    CodeTab: null,\n    CliTab: null,\n  };\n\n  React.Children.forEach(children, (child) => {\n    if (!child) return;\n    if (child.type === PreviewTab) contentMap.PreviewTab = child;\n    if (child.type === CodeTab) contentMap.CodeTab = child;\n    if (child.type === CliTab) contentMap.CliTab = child;\n  });\n\n  return (\n    <Tabs.Root\n      w=\"100%\"\n      variant=\"plain\"\n      lazyMount\n      defaultValue=\"preview\"\n      className={className}\n    >\n      <Tabs.List w=\"100%\">\n        <Flex gap={2} justifyContent=\"space-between\" alignItems=\"flex-start\" w=\"100%\" wrap=\"wrap\">\n          <Flex gap={2} wrap=\"wrap\" minW=\"0\" flex=\"1\">\n            <Tabs.Trigger value=\"preview\" {...TAB_STYLE_PROPS}>\n              <Icon as={FiEye} /> Preview\n            </Tabs.Trigger>\n\n            <Tabs.Trigger value=\"code\" {...TAB_STYLE_PROPS}>\n              <Icon as={FiCode} /> Code\n            </Tabs.Trigger>\n\n            <Tabs.Trigger value=\"cli\" {...TAB_STYLE_PROPS} className=\"cli-tab\">\n              <Icon as={FiTerminal} /> CLI\n            </Tabs.Trigger>\n          </Flex>\n\n          <Tabs.Trigger\n            className=\"contribute-tab\"\n            value=\"contribute\"\n            {...TAB_STYLE_PROPS}\n            flexShrink={0}\n          >\n            <Icon as={FiHeart} /> Contribute\n          </Tabs.Trigger>\n        </Flex>\n      </Tabs.List>\n\n      <Tabs.Content pt={0} value=\"preview\">{contentMap.PreviewTab}</Tabs.Content>\n      <Tabs.Content pt={0} value=\"code\">{contentMap.CodeTab}</Tabs.Content>\n      <Tabs.Content pt={0} value=\"cli\">{contentMap.CliTab}</Tabs.Content>\n\n      <Tabs.Content pt={0} value=\"contribute\">\n        <ContributionSection />\n      </Tabs.Content>\n    </Tabs.Root>\n  );\n};\n\nexport const PreviewTab = ({ children }) => <>{children}</>;\nexport const CodeTab = ({ children }) => <>{children}</>;\nexport const CliTab = ({ children }) => <>{children}</>;\n\nexport { TabbedLayout };\n",
+    "fileSize": 2479
+  },
+  "analysis": {
+    "dependencies": [
+      "react",
+      "@chakra-ui/react",
+      "react-icons/fi",
+      "./GitHub/ContributionSection"
+    ],
+    "exports": [
+      "PreviewTab",
+      "CodeTab",
+      "CliTab"
+    ],
+    "imports": [
+      {
+        "statement": "React",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ Tabs, Icon, Flex }",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ FiCode, FiEye, FiHeart, FiTerminal }",
+        "from": "react-icons/fi",
+        "isExternal": true
+      },
+      {
+        "statement": "ContributionSection",
+        "from": "./GitHub/ContributionSection",
+        "isExternal": false
+      }
+    ],
+    "hooks": [],
+    "features": [],
+    "complexity": {
+      "level": "moderate",
+      "score": 22,
+      "metrics": {
+        "lines": 84,
+        "dependencies": 4,
+        "hooks": 0,
+        "conditionals": 4
+      }
+    },
+    "stylingApproach": [
+      "css-in-js"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

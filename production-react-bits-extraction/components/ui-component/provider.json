@@ -1,0 +1,61 @@
+{
+  "metadata": {
+    "name": "Provider",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:21.129Z"
+  },
+  "source": {
+    "filePath": "src/components/setup/provider.jsx",
+    "sourceCode": "\"use client\";\n\nimport { ChakraProvider } from \"@chakra-ui/react\";\nimport { ColorModeProvider } from \"./color-mode\";\n\nimport { customTheme } from \"../../utils/customTheme\";\n\nexport function Provider(props) {\n  return (\n    <ChakraProvider value={customTheme}>\n      <ColorModeProvider {...props} />\n    </ChakraProvider>\n  );\n}\n",
+    "fileSize": 327
+  },
+  "analysis": {
+    "dependencies": [
+      "@chakra-ui/react",
+      "./color-mode",
+      "../../utils/customTheme"
+    ],
+    "exports": [
+      "Provider"
+    ],
+    "imports": [
+      {
+        "statement": "{ ChakraProvider }",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ ColorModeProvider }",
+        "from": "./color-mode",
+        "isExternal": false
+      },
+      {
+        "statement": "{ customTheme }",
+        "from": "../../utils/customTheme",
+        "isExternal": false
+      }
+    ],
+    "hooks": [],
+    "features": [],
+    "complexity": {
+      "level": "simple",
+      "score": 8,
+      "metrics": {
+        "lines": 15,
+        "dependencies": 3,
+        "hooks": 0,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

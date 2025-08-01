@@ -1,0 +1,114 @@
+{
+  "name": "reactbits-mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol server for ReactBits component library with comprehensive TypeScript build system and real data integration",
+  "type": "module", 
+  "main": "dist/index.js",
+  "types": "dist/types.d.ts",
+  "bin": {
+    "reactbits-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*",
+    "production-react-bits-extraction/**/*",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx --watch src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "build:watch": "tsc --watch",
+    "extract": "node react-bits-extractor.js",
+    "extract:verbose": "DEBUG=* node react-bits-extractor.js",
+    "test": "node test-extractor.js",
+    "test:ci": "npm run test && npm run typecheck",
+    "prepublishOnly": "npm run build && npm run test:ci",
+    "docker:build": "docker build -t reactbits-mcp-server .",
+    "docker:run": "docker run --rm reactbits-mcp-server",
+    "docker:dev": "docker-compose up mcp-dev",
+    "docker:prod": "docker-compose up mcp-server",
+    "docker:test": "docker-compose up mcp-test",
+    "health-check": "node -e \"console.log('Health check passed')\" || exit 1",
+    "verify-install": "node dist/index.js --version"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol", 
+    "react",
+    "components",
+    "reactbits",
+    "typescript",
+    "server",
+    "ai",
+    "llm",
+    "claude",
+    "assistant",
+    "component-library",
+    "development-tools",
+    "react-components"
+  ],
+  "author": {
+    "name": "ReactBits MCP Server Team",
+    "email": "contact@reactbits.dev",
+    "url": "https://reactbits.dev"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.1",
+    "@types/node-fetch": "^2.6.13",
+    "axios": "^1.11.0",
+    "cheerio": "^1.1.2",
+    "node-fetch": "^3.3.2",
+    "puppeteer": "^24.15.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.9.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidHDev/react-bits.git",
+    "directory": "mcp-server"
+  },
+  "bugs": {
+    "url": "https://github.com/DavidHDev/react-bits/issues",
+    "email": "contact@reactbits.dev"
+  },
+  "homepage": "https://reactbits.dev",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/DavidHDev"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}

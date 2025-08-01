@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "name": "Sidebar",
+    "category": "avigation",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:17.012Z"
+  },
+  "source": {
+    "filePath": "src/components/navs/Sidebar.jsx",
+    "sourceCode": "import {\n  Box,\n  Flex,\n  VStack,\n  Text,\n  Stack,\n  Icon,\n  IconButton,\n  Drawer,\n  Image,\n  Separator,\n} from \"@chakra-ui/react\";\nimport {\n  FiArrowRight,\n  FiMenu,\n  FiSearch,\n  FiX,\n} from \"react-icons/fi\";\nimport { Link, useLocation, useNavigate } from \"react-router-dom\";\nimport {\n  useRef,\n  useState,\n  useLayoutEffect,\n  useCallback,\n  useMemo,\n  memo,\n  useEffect,\n} from \"react\";\nimport { CATEGORIES, NEW, UPDATED } from \"../../constants/Categories\";\nimport { componentMap } from \"../../constants/Components\";\nimport { useSearch } from \"../context/SearchContext/useSearch\";\nimport { useTransition } from \"../../hooks/useTransition\";\nimport Logo from \"../../assets/logos/react-bits-logo.svg\";\n\nconst HOVER_TIMEOUT_DELAY = 150;\nconst ICON_BUTTON_STYLES = {\n  rounded: \"10px\",\n  border: \"1px solid #ffffff1c\",\n  bg: \"#060010\",\n};\nconst ARROW_ICON_PROPS = {\n  boxSize: 4,\n  transform: \"rotate(-45deg)\",\n};\n\nconst scrollToTop = () => window.scrollTo(0, 0);\nconst slug = (str) => str.replace(/\\s+/g, \"-\").toLowerCase();\n\nconst Sidebar = () => {\n  const [isDrawerOpen, setDrawerOpen] = useState(false);\n  const [linePosition, setLinePosition] = useState(null);\n  const [isLineVisible, setIsLineVisible] = useState(false);\n  const [hoverLinePosition, setHoverLinePosition] = useState(null);\n  const [isHoverLineVisible, setIsHoverLineVisible] = useState(false);\n  const [pendingActivePath, setPendingActivePath] = useState(null);\n  const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);\n\n  const searchBtnRef = useRef();\n  const menuBtnRef = useRef();\n  const sidebarRef = useRef(null);\n  const sidebarContainerRef = useRef(null);\n  const itemRefs = useRef({});\n  const hoverTimeoutRef = useRef(null);\n  const hoverDelayTimeoutRef = useRef(null);\n\n  const location = useLocation();\n  const navigate = useNavigate();\n  const { toggleSearch } = useSearch();\n  const { startTransition, isTransitioning } = useTransition();\n\n  const findActiveElement = useCallback(() => {\n    const activePath = pendingActivePath || location.pathname;\n\n    for (const category of CATEGORIES) {\n      const activeItem = category.subcategories.find((sub) => {\n        return activePath === `/${slug(category.name)}/${slug(sub)}`;\n      });\n      if (activeItem)\n        return itemRefs.current[\n          `/${slug(category.name)}/${slug(activeItem)}`\n        ];\n    }\n    return null;\n  }, [location.pathname, pendingActivePath]);\n\n  const updateLinePosition = useCallback((el) => {\n    if (!el || !sidebarRef.current || !sidebarRef.current.offsetParent) return null;\n    const sidebarRect = sidebarRef.current.getBoundingClientRect();\n    const elRect = el.getBoundingClientRect();\n    return elRect.top - sidebarRect.top + elRect.height / 2;\n  }, []);\n\n  const handleDrawerToggle = () => setDrawerOpen((p) => !p);\n  const closeDrawer = () => setDrawerOpen(false);\n  const onSearchClick = () => {\n    closeDrawer();\n    toggleSearch();\n  };\n  const onNavClick = () => {\n    closeDrawer();\n    scrollToTop();\n  };\n\n  const handleTransitionNavigation = useCallback(async (path, subcategory) => {\n    if (isTransitioning || location.pathname === path) return;\n\n    setPendingActivePath(path);\n\n    await startTransition(subcategory, componentMap, () => {\n      navigate(path);\n      scrollToTop();\n      setPendingActivePath(null);\n    });\n  }, [isTransitioning, location.pathname, startTransition, navigate]);\n\n  const handleMobileTransitionNavigation = useCallback(async (path, subcategory) => {\n    if (isTransitioning || location.pathname === path) return;\n\n    closeDrawer();\n    setPendingActivePath(path);\n\n    await startTransition(subcategory, componentMap, () => {\n      navigate(path);\n      scrollToTop();\n      setPendingActivePath(null);\n    });\n  }, [isTransitioning, location.pathname, startTransition, navigate]);\n\n  const onItemEnter = (path, e) => {\n    clearTimeout(hoverTimeoutRef.current);\n    clearTimeout(hoverDelayTimeoutRef.current);\n\n    const targetElement = e.currentTarget;\n\n    const pos = updateLinePosition(targetElement);\n    if (pos !== null) {\n      setHoverLinePosition(pos);\n    }\n\n    hoverDelayTimeoutRef.current = setTimeout(() => {\n      setIsHoverLineVisible(true);\n    }, 200);\n  };\n\n  const onItemLeave = () => {\n    clearTimeout(hoverDelayTimeoutRef.current);\n    hoverTimeoutRef.current = setTimeout(() => {\n      setIsHoverLineVisible(false);\n    }, HOVER_TIMEOUT_DELAY);\n  };\n\n  const scrollActiveItemIntoView = useCallback(() => {\n    const activeEl = findActiveElement();\n    if (activeEl && sidebarContainerRef.current) {\n      const containerRect = sidebarContainerRef.current.getBoundingClientRect();\n      const elementRect = activeEl.getBoundingClientRect();\n      const offset = 100;\n\n      const isElementAboveView = elementRect.top < containerRect.top + offset;\n      const isElementBelowView = elementRect.bottom > containerRect.bottom - offset;\n\n      if (isElementAboveView || isElementBelowView) {\n        const scrollTop = sidebarContainerRef.current.scrollTop +\n          (elementRect.top - containerRect.top) - offset;\n\n        sidebarContainerRef.current.scrollTo({\n          top: scrollTop,\n          behavior: 'smooth'\n        });\n      }\n    }\n  }, [findActiveElement]);\n\n  useLayoutEffect(() => {\n    const activeEl = findActiveElement();\n    if (!activeEl) {\n      setIsLineVisible(false);\n      return;\n    }\n    const pos = updateLinePosition(activeEl);\n    if (pos !== null) {\n      setLinePosition(pos);\n      setIsLineVisible(true);\n    } else {\n      setIsLineVisible(false);\n    }\n  }, [findActiveElement, updateLinePosition]);\n\n  useEffect(() => {\n    const timer = setTimeout(() => {\n      scrollActiveItemIntoView();\n    }, 100);\n\n    return () => clearTimeout(timer);\n  }, [location.pathname, scrollActiveItemIntoView]);\n\n  useEffect(() => () => {\n    clearTimeout(hoverTimeoutRef.current);\n    clearTimeout(hoverDelayTimeoutRef.current);\n  }, []);\n\n  useEffect(() => {\n    if (pendingActivePath && location.pathname === pendingActivePath) {\n      setPendingActivePath(null);\n    }\n  }, [location.pathname, pendingActivePath]);\n\n  useEffect(() => {\n    const sidebarElement = sidebarContainerRef.current;\n    if (!sidebarElement) return;\n\n    const handleScroll = () => {\n      const { scrollTop, scrollHeight, clientHeight } = sidebarElement;\n      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;\n      setIsScrolledToBottom(isAtBottom);\n    };\n\n    sidebarElement.addEventListener('scroll', handleScroll);\n    handleScroll();\n\n    return () => sidebarElement.removeEventListener('scroll', handleScroll);\n  }, []);\n\n  return (\n    <>\n      <Box\n        display={{ md: \"none\" }}\n        position=\"fixed\"\n        top={0}\n        left={0}\n        zIndex=\"overlay\"\n        w=\"100%\"\n        bg=\"#060010\"\n        p=\"1em\"\n      >\n        <Flex\n          align=\"center\"\n          justify=\"space-between\"\n          gap=\"1em\"\n        >\n          <Link to=\"/\">\n            <Image src={Logo} h=\"32px\" alt=\"React Bits logo\" />\n          </Link>\n\n          <Flex gap={2}>\n            <IconButton\n              {...ICON_BUTTON_STYLES}\n              ref={searchBtnRef}\n              aria-label=\"Search\"\n              onClick={onSearchClick}\n            >\n              <Icon as={FiSearch} color='#fff' />\n            </IconButton>\n            <IconButton\n              {...ICON_BUTTON_STYLES}\n              ref={menuBtnRef}\n              aria-label=\"Open Menu\"\n              onClick={handleDrawerToggle}\n            >\n              <Icon as={FiMenu} color='#fff' />\n            </IconButton>\n          </Flex>\n        </Flex>\n      </Box>\n\n      <Drawer.Root\n        open={isDrawerOpen}\n        onOpenChange={closeDrawer}\n        placement=\"left\"\n        size=\"full\"\n      >\n        <Drawer.Backdrop />\n        <Drawer.Positioner w=\"100vw\"\n          sx={{\n            transition: \"transform 0.3s ease\",\n            \"&[data-state='closed']\": { transform: \"translateX(-100%)\" },\n            \"&[data-state='open']\": { transform: \"translateX(0)\" },\n          }}\n          maxW=\"100vw\">\n          <Drawer.Content bg=\"#060010\">\n            <Drawer.Header\n              h=\"72px\"\n              py={2}\n              borderBottom=\"1px solid #ffffff1c\"\n              className=\"sidebar-logo\"\n            >\n              <Flex align=\"center\" justify=\"space-between\" w=\"100%\">\n                <Link to=\"/\">\n                  <Image src={Logo} alt=\"Logo\" h=\"28px\" />\n                </Link>\n                <IconButton\n                  {...ICON_BUTTON_STYLES}\n                  aria-label=\"Close\"\n                  onClick={closeDrawer}\n                >\n                  <Icon as={FiX} color='#fff' />\n                </IconButton>\n              </Flex>\n            </Drawer.Header>\n\n            <Drawer.Body pb=\"6em\">\n              <VStack align=\"stretch\" spacing={5} mt={8}>\n                {CATEGORIES.map((cat, index) => (\n                  <Category\n                    key={cat.name}\n                    category={cat}\n                    location={location}\n                    pendingActivePath={pendingActivePath}\n                    handleClick={onNavClick}\n                    handleTransitionNavigation={handleMobileTransitionNavigation}\n                    onItemMouseEnter={() => { }}\n                    onItemMouseLeave={() => { }}\n                    itemRefs={{}}\n                    isTransitioning={isTransitioning}\n                    isFirstCategory={index === 0}\n                  />\n                ))}\n              </VStack>\n\n              <Separator my={4} />\n              <Text color=\"#a6a6a6\" mb={3}>\n                Useful Links\n              </Text>\n              <Flex direction=\"column\" gap={2}>\n                <Link\n                  to=\"https://github.com/DavidHDev/react-bits\"\n                  target=\"_blank\"\n                  onClick={closeDrawer}\n                  display=\"block\"\n                  mb={2}\n                >\n                  <Flex alignItems=\"center\" gap='4px'><span>GitHub</span> <Icon as={FiArrowRight} {...ARROW_ICON_PROPS} /></Flex>\n                </Link>\n                <Link\n                  to=\"/showcase\"\n                  onClick={closeDrawer}\n                  display=\"block\"\n                  mb={2}\n                >\n                  <Flex alignItems=\"center\" gap='4px'><span>Showcase</span> <Icon as={FiArrowRight} {...ARROW_ICON_PROPS} /></Flex>\n                </Link>\n                <Link\n                  to=\"https://davidhaz.com/\"\n                  target=\"_blank\"\n                  onClick={closeDrawer}\n                  display=\"block\"\n                  mb={2}\n                >\n                  <Flex alignItems=\"center\" gap='4px'><span>Who made this?</span> <Icon as={FiArrowRight} {...ARROW_ICON_PROPS} /></Flex>\n                </Link>\n              </Flex>\n            </Drawer.Body>\n          </Drawer.Content>\n        </Drawer.Positioner>\n      </Drawer.Root>\n\n      <Box\n        as=\"nav\"\n        ref={sidebarContainerRef}\n        position=\"fixed\"\n        top=\"57px\"\n        h=\"100vh\"\n        w={{ base: 0, md: 40 }}\n        p={5}\n        overflowY=\"auto\"\n        className={`sidebar ${isScrolledToBottom ? 'sidebar-no-fade' : ''}`}\n      >\n        <Box ref={sidebarRef} position=\"relative\">\n          <Box\n            position=\"absolute\"\n            left=\"0\"\n            w=\"2px\"\n            h=\"16px\"\n            bg=\"#fff\"\n            rounded=\"1px\"\n            transform={\n              isLineVisible && linePosition !== null\n                ? `translateY(${linePosition - 8}px)`\n                : \"translateY(-100px)\"\n            }\n            opacity={isLineVisible ? 1 : 0}\n            transition=\"all 0.2s cubic-bezier(0.4,0,0.2,1)\"\n            pointerEvents=\"none\"\n            zIndex={2}\n          />\n\n          <Box\n            position=\"absolute\"\n            left=\"0\"\n            w=\"2px\"\n            h=\"16px\"\n            bg=\"#ffffff66\"\n            rounded=\"1px\"\n            transform={\n              hoverLinePosition !== null\n                ? `translateY(${hoverLinePosition - 8}px)`\n                : \"translateY(-100px)\"\n            }\n            opacity={isHoverLineVisible ? 1 : 0}\n            transition=\"all 0.2s cubic-bezier(0.4,0,0.2,1)\"\n            pointerEvents=\"none\"\n            zIndex={1}\n          />\n\n          <VStack align=\"stretch\" spacing={4}>\n            {CATEGORIES.map((cat, index) => (\n              <Category\n                key={cat.name}\n                category={cat}\n                location={location}\n                pendingActivePath={pendingActivePath}\n                handleClick={scrollToTop}\n                handleTransitionNavigation={handleTransitionNavigation}\n                onItemMouseEnter={onItemEnter}\n                onItemMouseLeave={onItemLeave}\n                itemRefs={itemRefs}\n                isTransitioning={isTransitioning}\n                isFirstCategory={index === 0}\n              />\n            ))}\n          </VStack>\n        </Box>\n      </Box>\n    </>\n  );\n};\n\nconst Category = memo(\n  ({\n    category,\n    handleClick,\n    handleTransitionNavigation,\n    location,\n    pendingActivePath,\n    onItemMouseEnter,\n    onItemMouseLeave,\n    itemRefs,\n    isTransitioning,\n    isFirstCategory,\n  }) => {\n    const items = useMemo(\n      () =>\n        category.subcategories.map((sub) => {\n          const path = `/${slug(category.name)}/${slug(sub)}`;\n          const activePath = pendingActivePath || location.pathname;\n          return {\n            sub,\n            path,\n            isActive: activePath === path,\n            isNew: NEW.includes(sub),\n            isUpdated: UPDATED.includes(sub),\n          };\n        }),\n      [category.name, category.subcategories, location.pathname, pendingActivePath]\n    );\n\n    return (\n      <Box>\n        <Text className=\"category-name\" mb={2} mt={isFirstCategory ? 0 : 4}>\n          {category.name}\n        </Text>\n        <Stack\n          spacing={0.5}\n          pl={4}\n          borderLeft=\"1px solid #392e4e\"\n          position=\"relative\"\n        >\n          {items.map(({ sub, path, isActive, isNew, isUpdated }) => (\n            <Link\n              key={path}\n              ref={(el) =>\n                itemRefs.current && (itemRefs.current[path] = el)\n              }\n              to={path}\n              className={`sidebar-item ${isActive ? 'active-sidebar-item' : ''} ${isTransitioning ? 'transitioning' : ''}`}\n              onClick={(e) => {\n                e.preventDefault();\n                if (handleTransitionNavigation) {\n                  handleTransitionNavigation(path, sub);\n                } else {\n                  handleClick();\n                }\n              }}\n              onMouseEnter={(e) => onItemMouseEnter(path, e)}\n              onMouseLeave={onItemMouseLeave}\n            >\n              {sub}\n              {isNew && <span className=\"new-tag\">New</span>}\n              {isUpdated && <span className=\"updated-tag\">Updated</span>}\n            </Link>\n          ))}\n        </Stack>\n      </Box>\n    );\n  }\n);\n\nCategory.displayName = \"Category\";\n\nexport default Sidebar;\n",
+    "fileSize": 15084
+  },
+  "analysis": {
+    "dependencies": [
+      "@chakra-ui/react",
+      "react-icons/fi",
+      "react-router-dom",
+      "react",
+      "../../constants/Categories",
+      "../../constants/Components",
+      "../context/SearchContext/useSearch",
+      "../../hooks/useTransition",
+      "../../assets/logos/react-bits-logo.svg"
+    ],
+    "exports": [
+      "Sidebar"
+    ],
+    "imports": [
+      {
+        "statement": "{\n  Box,\n  Flex,\n  VStack,\n  Text,\n  Stack,\n  Icon,\n  IconButton,\n  Drawer,\n  Image,\n  Separator,\n}",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      },
+      {
+        "statement": "{\n  FiArrowRight,\n  FiMenu,\n  FiSearch,\n  FiX,\n}",
+        "from": "react-icons/fi",
+        "isExternal": true
+      },
+      {
+        "statement": "{ Link, useLocation, useNavigate }",
+        "from": "react-router-dom",
+        "isExternal": true
+      },
+      {
+        "statement": "{\n  useRef,\n  useState,\n  useLayoutEffect,\n  useCallback,\n  useMemo,\n  memo,\n  useEffect,\n}",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ CATEGORIES, NEW, UPDATED }",
+        "from": "../../constants/Categories",
+        "isExternal": false
+      },
+      {
+        "statement": "{ componentMap }",
+        "from": "../../constants/Components",
+        "isExternal": false
+      },
+      {
+        "statement": "{ useSearch }",
+        "from": "../context/SearchContext/useSearch",
+        "isExternal": false
+      },
+      {
+        "statement": "{ useTransition }",
+        "from": "../../hooks/useTransition",
+        "isExternal": false
+      },
+      {
+        "statement": "Logo",
+        "from": "../../assets/logos/react-bits-logo.svg",
+        "isExternal": false
+      }
+    ],
+    "hooks": [
+      "useLocation",
+      "useNavigate",
+      "useRef",
+      "useState",
+      "useLayoutEffect",
+      "useCallback",
+      "useMemo",
+      "useEffect",
+      "useSearch",
+      "useTransition",
+      "useEnter",
+      "useLeave"
+    ],
+    "features": [
+      "stateful",
+      "side-effects",
+      "performance-optimized",
+      "animated",
+      "interactive"
+    ],
+    "complexity": {
+      "level": "complex",
+      "score": 239,
+      "metrics": {
+        "lines": 501,
+        "dependencies": 9,
+        "hooks": 51,
+        "conditionals": 12
+      }
+    },
+    "stylingApproach": [
+      "css-in-js"
+    ],
+    "hasAnimation": true
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

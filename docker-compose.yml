@@ -1,0 +1,248 @@
+# ============================================================================
+# Docker Compose Configuration for ReactBits MCP Server
+# Supports development, testing, and production environments
+# ============================================================================
+
+version: '3.8'
+
+services:
+  # ============================================================================
+  # Production MCP Server
+  # ============================================================================
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+      args:
+        - NODE_ENV=production
+    image: reactbits/mcp-server:latest
+    container_name: reactbits-mcp-server
+    restart: unless-stopped
+    
+    environment:
+      - NODE_ENV=production
+      - LOG_LEVEL=info
+      - ENABLE_METRICS=true
+      - ENABLE_TRACING=false
+      - CACHE_EXPIRY=3600000
+      - MAX_CACHE_SIZE=10000
+      - MAX_REQUESTS_PER_MINUTE=100
+    
+    volumes:
+      # Persistent cache storage
+      - mcp-cache:/app/scraper-cache
+      - mcp-logs:/app/logs
+      # Read-only production data
+      - ./production-react-bits-extraction:/app/production-react-bits-extraction:ro
+    
+    networks:
+      - mcp-network
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check passed')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    
+    # Security
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================================================
+  # Development Server with Hot Reload
+  # ============================================================================
+  mcp-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: reactbits/mcp-server:dev
+    container_name: reactbits-mcp-dev
+    
+    environment:
+      - NODE_ENV=development
+      - LOG_LEVEL=debug
+      - ENABLE_METRICS=true
+      - ENABLE_TRACING=true
+    
+    volumes:
+      # Bind mount for live development
+      - .:/app
+      - /app/node_modules
+      - dev-cache:/app/scraper-cache
+    
+    networks:
+      - mcp-network
+    
+    ports:
+      - "3000:3000"  # Debug port
+    
+    command: npm run dev
+
+  # ============================================================================
+  # Test Runner
+  # ============================================================================  
+  mcp-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: testing
+    image: reactbits/mcp-server:test
+    container_name: reactbits-mcp-test
+    
+    environment:
+      - NODE_ENV=test
+      - LOG_LEVEL=error
+    
+    volumes:
+      - .:/app
+      - /app/node_modules
+    
+    networks:
+      - mcp-network
+    
+    command: npm test
+
+  # ============================================================================
+  # Monitoring & Observability (Optional)
+  # ============================================================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: reactbits-prometheus
+    restart: unless-stopped
+    
+    ports:
+      - "9090:9090"
+    
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    
+    networks:
+      - mcp-network
+    
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: reactbits-grafana
+    restart: unless-stopped
+    
+    ports:
+      - "3001:3000"
+    
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    
+    networks:
+      - mcp-network
+    
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # Reverse Proxy (Optional, for multi-service deployments)
+  # ============================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: reactbits-nginx
+    restart: unless-stopped
+    
+    ports:
+      - "80:80"
+      - "443:443"
+    
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx-logs:/var/log/nginx
+    
+    depends_on:
+      - mcp-server
+    
+    networks:
+      - mcp-network
+    
+    profiles:
+      - proxy
+
+# ============================================================================
+# Networks
+# ============================================================================
+networks:
+  mcp-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# ============================================================================
+# Volumes
+# ============================================================================
+volumes:
+  # Production volumes
+  mcp-cache:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/cache
+  
+  mcp-logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/logs
+  
+  # Development volumes
+  dev-cache:
+    driver: local
+  
+  # Monitoring volumes
+  prometheus-data:
+    driver: local
+  
+  grafana-data:
+    driver: local
+  
+  nginx-logs:
+    driver: local

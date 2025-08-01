@@ -1,0 +1,138 @@
+{
+  "metadata": {
+    "name": "App",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:32:55.927Z"
+  },
+  "source": {
+    "filePath": "src/App.jsx",
+    "sourceCode": "import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom'\nimport { SearchProvider } from './components/context/SearchContext/SearchContext';\nimport { LanguageProvider } from './components/context/LanguageContext/LanguageContext'\nimport { TransitionProvider } from './components/context/TransitionContext/TransitionContext';\nimport { useEffect } from 'react';\nimport { Toaster } from 'sonner'\nimport { forceChakraDarkTheme } from './utils/utils';\nimport { toastStyles } from './utils/customTheme';\n\nimport DisplayHeader from './components/landing/DisplayHeader/DisplayHeader';\nimport Header from './components/navs/Header';\nimport Sidebar from './components/navs/Sidebar';\nimport LandingPage from './pages/LandingPage'\nimport CategoryPage from './pages/CategoryPage'\nimport ShowcasePage from './pages/ShowcasePage';\nimport Announcement from './components/common/Misc/Announcement';\n\nfunction AppContent() {\n  const location = useLocation();\n\n  const getActiveItem = () => {\n    if (location.pathname === '/') return 'home';\n    if (location.pathname === '/showcase') return 'showcase';\n    return null;\n  };\n\n  const isCategoryPage = location.pathname.match(/^\\/[^/]+\\/[^/]+$/);\n\n  return (\n    <>\n      {!isCategoryPage && <DisplayHeader activeItem={getActiveItem()} />}\n      <Routes>\n        <Route exact path=\"/\" element={<LandingPage />} />\n        <Route exact path=\"/showcase\" element={<ShowcasePage />} />\n        <Route path=\"/:category/:subcategory\" element={\n          <SearchProvider>\n            <LanguageProvider>\n              <TransitionProvider>\n                <main className='app-container'>\n                  <Announcement />\n                  <Header />\n                  <section className='category-wrapper'>\n                    <Sidebar />\n                    <CategoryPage />\n                  </section>\n                  <Toaster\n                    toastOptions={toastStyles}\n                    position='bottom-right'\n                    visibleToasts={1}\n                  />\n                </main>\n              </TransitionProvider>\n            </LanguageProvider>\n          </SearchProvider>\n        } />\n      </Routes>\n    </>\n  );\n}\n\nexport default function App() {\n  useEffect(() => {\n    forceChakraDarkTheme();\n  }, []);\n\n  return (\n    <Router>\n      <AppContent />\n    </Router>\n  );\n}\n",
+    "fileSize": 2358
+  },
+  "analysis": {
+    "dependencies": [
+      "react-router-dom",
+      "./components/context/SearchContext/SearchContext",
+      "./components/context/LanguageContext/LanguageContext",
+      "./components/context/TransitionContext/TransitionContext",
+      "react",
+      "sonner",
+      "./utils/utils",
+      "./utils/customTheme",
+      "./components/landing/DisplayHeader/DisplayHeader",
+      "./components/navs/Header",
+      "./components/navs/Sidebar",
+      "./pages/LandingPage",
+      "./pages/CategoryPage",
+      "./pages/ShowcasePage",
+      "./components/common/Misc/Announcement"
+    ],
+    "exports": [
+      "App"
+    ],
+    "imports": [
+      {
+        "statement": "{ Route, BrowserRouter as Router, Routes, useLocation }",
+        "from": "react-router-dom",
+        "isExternal": true
+      },
+      {
+        "statement": "{ SearchProvider }",
+        "from": "./components/context/SearchContext/SearchContext",
+        "isExternal": false
+      },
+      {
+        "statement": "{ LanguageProvider }",
+        "from": "./components/context/LanguageContext/LanguageContext",
+        "isExternal": false
+      },
+      {
+        "statement": "{ TransitionProvider }",
+        "from": "./components/context/TransitionContext/TransitionContext",
+        "isExternal": false
+      },
+      {
+        "statement": "{ useEffect }",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ Toaster }",
+        "from": "sonner",
+        "isExternal": true
+      },
+      {
+        "statement": "{ forceChakraDarkTheme }",
+        "from": "./utils/utils",
+        "isExternal": false
+      },
+      {
+        "statement": "{ toastStyles }",
+        "from": "./utils/customTheme",
+        "isExternal": false
+      },
+      {
+        "statement": "DisplayHeader",
+        "from": "./components/landing/DisplayHeader/DisplayHeader",
+        "isExternal": false
+      },
+      {
+        "statement": "Header",
+        "from": "./components/navs/Header",
+        "isExternal": false
+      },
+      {
+        "statement": "Sidebar",
+        "from": "./components/navs/Sidebar",
+        "isExternal": false
+      },
+      {
+        "statement": "LandingPage",
+        "from": "./pages/LandingPage",
+        "isExternal": false
+      },
+      {
+        "statement": "CategoryPage",
+        "from": "./pages/CategoryPage",
+        "isExternal": false
+      },
+      {
+        "statement": "ShowcasePage",
+        "from": "./pages/ShowcasePage",
+        "isExternal": false
+      },
+      {
+        "statement": "Announcement",
+        "from": "./components/common/Misc/Announcement",
+        "isExternal": false
+      }
+    ],
+    "hooks": [
+      "useLocation",
+      "useEffect"
+    ],
+    "features": [
+      "side-effects"
+    ],
+    "complexity": {
+      "level": "complex",
+      "score": 52,
+      "metrics": {
+        "lines": 72,
+        "dependencies": 15,
+        "hooks": 4,
+        "conditionals": 2
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

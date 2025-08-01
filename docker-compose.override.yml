@@ -1,0 +1,34 @@
+# ============================================================================  
+# Docker Compose Override for Development
+# This file is automatically loaded in development environments
+# ============================================================================
+
+version: '3.8'
+
+services:
+  mcp-server:
+    # Override production settings for development
+    build:
+      target: development
+    
+    environment:
+      - NODE_ENV=development
+      - LOG_LEVEL=debug
+      - ENABLE_METRICS=true
+      - ENABLE_TRACING=true
+    
+    volumes:
+      # Enable live code reloading
+      - .:/app
+      - /app/node_modules
+      - /app/dist
+    
+    ports:
+      - "3000:3000"
+      - "9229:9229"  # Node.js debugger port
+    
+    command: npm run dev
+    
+    # Disable health check in development for faster startup
+    healthcheck:
+      disable: true

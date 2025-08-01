@@ -1,0 +1,84 @@
+# ============================================================================
+# Prometheus Alert Rules for ReactBits MCP Server
+# ============================================================================
+
+groups:
+  - name: reactbits_mcp_alerts
+    interval: 30s
+    rules:
+      # High memory usage alert
+      - alert: HighMemoryUsage
+        expr: reactbits_memory_usage_mb > 400
+        for: 2m
+        labels:
+          severity: warning
+          service: reactbits-mcp-server
+        annotations:
+          summary: "High memory usage detected"
+          description: "ReactBits MCP Server is using {{ $value }}MB of memory, which is above the 400MB threshold."
+
+      # Server unhealthy alert
+      - alert: ServerUnhealthy
+        expr: reactbits_health_status > 1
+        for: 1m
+        labels:
+          severity: critical
+          service: reactbits-mcp-server
+        annotations:
+          summary: "ReactBits MCP Server is unhealthy"
+          description: "Health check status is {{ $value }} (0=healthy, 1=degraded, 2=unhealthy)"
+
+      # High error rate alert
+      - alert: HighErrorRate
+        expr: rate(reactbits_errors_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          service: reactbits-mcp-server
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} over the last 5 minutes."
+
+      # Slow response time alert
+      - alert: SlowResponseTime
+        expr: reactbits_request_duration_seconds_avg > 2
+        for: 3m
+        labels:
+          severity: warning
+          service: reactbits-mcp-server
+        annotations:
+          summary: "Slow response times detected"
+          description: "Average response time is {{ $value }}s, which is above the 2s threshold."
+
+      # Server down alert
+      - alert: ServerDown
+        expr: up{job="reactbits-mcp-server"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: reactbits-mcp-server
+        annotations:
+          summary: "ReactBits MCP Server is down"
+          description: "ReactBits MCP Server has been down for more than 1 minute."
+
+      # Data service issues
+      - alert: DataServiceIssues
+        expr: reactbits_data_service_components_count == 0
+        for: 5m
+        labels:
+          severity: warning
+          service: reactbits-mcp-server
+        annotations:
+          summary: "Data service has no components"
+          description: "Data service is not returning any components, which may indicate a data loading issue."
+
+      # Cache issues
+      - alert: LowCacheHitRate
+        expr: reactbits_cache_hit_rate < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          service: reactbits-mcp-server
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value | humanizePercentage }}, which may indicate cache issues or high load."

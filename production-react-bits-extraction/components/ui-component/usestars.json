@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "name": "UseStars",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:33.550Z"
+  },
+  "source": {
+    "filePath": "src/hooks/useStars.js",
+    "sourceCode": "import { useState } from \"react\";\nimport { useSingleEffect } from \"react-haiku\";\nimport { getStarsCount } from \"../utils/utils\";\n\nconst CACHE_KEY = 'github_stars_cache';\nconst CACHE_DURATION = 24 * 60 * 60 * 1000;\n\nexport const useStars = () => {\n  const [stars, setStars] = useState(0);\n\n  useSingleEffect(() => {\n    const fetchStars = async () => {\n      try {\n        const cachedData = localStorage.getItem(CACHE_KEY);\n        \n        if (cachedData) {\n          const { count, timestamp } = JSON.parse(cachedData);\n          const now = Date.now();\n          \n          if (now - timestamp < CACHE_DURATION) {\n            setStars(count);\n            return;\n          }\n        }\n        \n        const count = await getStarsCount();\n        \n        localStorage.setItem(CACHE_KEY, JSON.stringify({\n          count,\n          timestamp: Date.now()\n        }));\n        \n        setStars(count);\n      } catch (error) {\n        console.error('Error fetching stars:', error);\n        \n        const cachedData = localStorage.getItem(CACHE_KEY);\n        if (cachedData) {\n          const { count } = JSON.parse(cachedData);\n          setStars(count);\n        }\n      }\n    };\n\n    fetchStars();\n  }, []);\n\n  return stars;\n};",
+    "fileSize": 1230
+  },
+  "analysis": {
+    "dependencies": [
+      "react",
+      "react-haiku",
+      "../utils/utils"
+    ],
+    "exports": [
+      "useStars"
+    ],
+    "imports": [
+      {
+        "statement": "{ useState }",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ useSingleEffect }",
+        "from": "react-haiku",
+        "isExternal": true
+      },
+      {
+        "statement": "{ getStarsCount }",
+        "from": "../utils/utils",
+        "isExternal": false
+      }
+    ],
+    "hooks": [
+      "useState",
+      "useSingleEffect",
+      "useStars"
+    ],
+    "features": [
+      "stateful"
+    ],
+    "complexity": {
+      "level": "moderate",
+      "score": 30,
+      "metrics": {
+        "lines": 49,
+        "dependencies": 3,
+        "hooks": 5,
+        "conditionals": 3
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

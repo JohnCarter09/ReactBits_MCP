@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "name": "Vite.Config",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:32:55.917Z"
+  },
+  "source": {
+    "filePath": "vite.config.js",
+    "sourceCode": "import react from '@vitejs/plugin-react'\nimport tailwindcss from '@tailwindcss/vite'\nimport path from 'path'\nimport safeParser from 'postcss-safe-parser'\n\nimport { fileURLToPath } from 'url';\nimport { defineConfig } from 'vite'\n\nconst __dirname = path.dirname(fileURLToPath(import.meta.url));\n\nexport default defineConfig({\n  plugins: [react(), tailwindcss()],\n  server: {\n    hmr: true\n  },\n  resolve: {\n    alias: {\n      '@': '/src',\n      '@utils': path.resolve(__dirname, 'src/utils'),\n      '@content': path.resolve(__dirname, 'src/content'),\n      '@tailwind': path.resolve(__dirname, 'src/tailwind'),\n      '@ts-default': path.resolve(__dirname, 'src/ts-default'),\n      '@ts-tailwind': path.resolve(__dirname, 'src/ts-tailwind'),\n    },\n  },\n  css: {\n    postcss: {\n      parser: safeParser\n    }\n  },\n  assetsInclude: ['**/*.glb']\n})\n",
+    "fileSize": 844
+  },
+  "analysis": {
+    "dependencies": [
+      "@vitejs/plugin-react",
+      "@tailwindcss/vite",
+      "path",
+      "postcss-safe-parser",
+      "url",
+      "vite"
+    ],
+    "exports": [
+      "defineConfig"
+    ],
+    "imports": [
+      {
+        "statement": "react",
+        "from": "@vitejs/plugin-react",
+        "isExternal": true
+      },
+      {
+        "statement": "tailwindcss",
+        "from": "@tailwindcss/vite",
+        "isExternal": true
+      },
+      {
+        "statement": "path",
+        "from": "path",
+        "isExternal": true
+      },
+      {
+        "statement": "safeParser",
+        "from": "postcss-safe-parser",
+        "isExternal": true
+      },
+      {
+        "statement": "{ fileURLToPath }",
+        "from": "url",
+        "isExternal": true
+      },
+      {
+        "statement": "{ defineConfig }",
+        "from": "vite",
+        "isExternal": true
+      }
+    ],
+    "hooks": [],
+    "features": [],
+    "complexity": {
+      "level": "simple",
+      "score": 17,
+      "metrics": {
+        "lines": 33,
+        "dependencies": 7,
+        "hooks": 0,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "tailwind"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

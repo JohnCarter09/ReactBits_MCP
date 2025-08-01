@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "name": "CodeHighlighter",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:04.210Z"
+  },
+  "source": {
+    "filePath": "src/components/code/CodeHighlighter.jsx",
+    "sourceCode": "import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';\nimport { useState } from 'react';\nimport { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';\nimport { synthwave84 } from 'react-syntax-highlighter/dist/esm/styles/prism';\nimport { FiCopy, FiCheckSquare } from \"react-icons/fi\";\nimport { RiEmotionSadLine } from 'react-icons/ri';\n\nconst CodeHighlighter = ({ language, codeString, showLineNumbers = true, maxLines = 25 }) => {\n  const [copied, setCopied] = useState(false);\n  const [expanded, setExpanded] = useState(false);\n\n  const handleCopy = async () => {\n    try {\n      await navigator.clipboard.writeText(codeString);\n      setCopied(true);\n      setTimeout(() => setCopied(false), 2000);\n    } catch (error) {\n      console.error('Failed to copy text: ', error);\n    }\n  };\n\n  const codeLines = codeString?.split('\\n').length;\n  const shouldCollapse = codeLines > maxLines;\n\n  return (\n    <Box position=\"relative\" mb={5}>\n      <Box\n        position=\"relative\"\n        overflow=\"hidden\"\n        maxHeight={shouldCollapse && !expanded ? 'calc(1.2em * ' + maxLines + ')' : 'none'}\n      >\n        {codeString &&\n          <SyntaxHighlighter\n            language={language}\n            style={synthwave84}\n            showLineNumbers={showLineNumbers}\n            className=\"code-highlighter\"\n          >\n            {codeString}\n          </SyntaxHighlighter>\n        }\n\n        {!codeString &&\n          <Flex alignItems=\"center\" gap={2} my={2} color=\"#a1a1aa\">\n            <Text>Nothing here yet!</Text>\n            <Icon as={RiEmotionSadLine} />\n          </Flex>\n        }\n\n        {shouldCollapse && !expanded && (\n          <Box\n            position=\"absolute\"\n            bottom={0}\n            left={0}\n            right={0}\n            height=\"60%\"\n            background=\"linear-gradient(to bottom, transparent, #060010)\"\n          />\n        )}\n\n        {shouldCollapse && (\n          <Button\n            position=\"absolute\"\n            bottom={shouldCollapse && !expanded ? '.75rem' : '2.25rem'}\n            right={shouldCollapse && !expanded ? '.75rem' : '1.75rem'}\n            rounded=\"xl\"\n            height='2.5rem'\n            fontWeight={500}\n            backgroundColor=\"#060010\"\n            border=\"1px solid #392e4e\"\n            color=\"white\"\n            _hover={{ backgroundColor: '#111' }}\n            _active={{ backgroundColor: '#111' }}\n            zIndex={2}\n            onClick={() => setExpanded(prev => !prev)}\n          >\n            {expanded ? 'Collapse Snippet' : 'See Full Snippet'}\n          </Button>\n        )}\n      </Box>\n\n      {codeString &&\n        <Button\n          position=\"absolute\"\n          top={4}\n          right=\".6em\"\n          borderRadius=\"8px\"\n          fontWeight={500}\n          backgroundColor={copied ? '#6CC75D' : '#060010'}\n          border=\"1px solid #392e4e\"\n          color={copied ? 'black' : 'white'}\n          _hover={{ backgroundColor: copied ? '#6CC75D' : '#271E37' }}\n          _active={{ backgroundColor: '#5227FF' }}\n          transition=\"background-color 0.3s ease\"\n          onClick={handleCopy}\n        >\n          {copied\n            ? <Icon as={FiCheckSquare} color=\"#fff\" boxSize={4}/>\n            : <Icon as={FiCopy} color=\"#fff\" boxSize={4}/>\n          }\n        </Button>\n      }\n    </Box>\n  );\n};\n\nexport default CodeHighlighter;\n",
+    "fileSize": 3347
+  },
+  "analysis": {
+    "dependencies": [
+      "@chakra-ui/react",
+      "react",
+      "react-syntax-highlighter",
+      "react-syntax-highlighter/dist/esm/styles/prism",
+      "react-icons/fi",
+      "react-icons/ri"
+    ],
+    "exports": [
+      "CodeHighlighter"
+    ],
+    "imports": [
+      {
+        "statement": "{ Box, Button, Flex, Icon, Text }",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ useState }",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ Prism as SyntaxHighlighter }",
+        "from": "react-syntax-highlighter",
+        "isExternal": true
+      },
+      {
+        "statement": "{ synthwave84 }",
+        "from": "react-syntax-highlighter/dist/esm/styles/prism",
+        "isExternal": true
+      },
+      {
+        "statement": "{ FiCopy, FiCheckSquare }",
+        "from": "react-icons/fi",
+        "isExternal": true
+      },
+      {
+        "statement": "{ RiEmotionSadLine }",
+        "from": "react-icons/ri",
+        "isExternal": true
+      }
+    ],
+    "hooks": [
+      "useState"
+    ],
+    "features": [
+      "stateful",
+      "animated",
+      "interactive"
+    ],
+    "complexity": {
+      "level": "moderate",
+      "score": 32,
+      "metrics": {
+        "lines": 108,
+        "dependencies": 6,
+        "hooks": 3,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": true
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

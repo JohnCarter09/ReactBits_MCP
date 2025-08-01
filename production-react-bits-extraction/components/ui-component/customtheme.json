@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "name": "CustomTheme",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:25.266Z"
+  },
+  "source": {
+    "filePath": "src/utils/customTheme.js",
+    "sourceCode": "import {\n  createSystem,\n  defaultConfig,\n  defineSlotRecipe,\n} from \"@chakra-ui/react\";\n\nconst drawerRecipe = defineSlotRecipe({\n  className: \"drawer\",\n  slots: [\"content\"],\n  base: {\n    content: {\n      w: \"100vw\",\n      h: \"100vh\",\n    },\n  },\n});\n\nconst tabsRecipe = defineSlotRecipe({\n  className: \"tabs\",\n  slots: [\"trigger\"],\n  base: {\n    trigger: {\n      flex: \"0 0 auto\",\n      bg: \"#060010\",\n      borderRadius: \"10px\",\n      fontSize: \"14px\",\n      border: \"1px solid #392e4e\",\n      h: 9,\n      px: \"1rem\",\n      transition: \"background-color .3s\",\n\n      _hover: { bg: \"#271E37\" },\n\n      \"&[data-state='active']\": {\n        color: \"#fff\",\n        bg: \"#170D27\",\n      },\n    },\n  },\n});\n\nexport const toastStyles = {\n  style: {\n    fontSize: \"12px\",\n    borderRadius: \"0.75rem\",\n    border: \"1px solid #392e4e\",\n    color: \"#fff\",\n    backgroundColor: \"#060010\",\n  },\n};\n\nexport const customTheme = createSystem(defaultConfig, {\n  config: {\n    initialColorMode: \"dark\",\n    useSystemColorMode: false,\n  },\n\n  styles: {\n    global: {\n      \"html, body\": {\n        minHeight: \"100vh\",\n        fontFamily: '\"Figtree\", sans-serif',\n        backgroundColor: \"#060010\",\n      },\n    },\n  },\n\n  components: {\n    Slider: {\n      baseStyle: {\n        thumb: { bg: \"#fff\", _focus: { boxShadow: \"none\" } },\n      },\n      variants: {\n        solid: {\n          track: { bg: \"#271E37\" },\n          filledTrack: { bg: \"#fff\" },\n        },\n      },\n      defaultProps: { variant: \"solid\" },\n    },\n    Switch: {\n      baseStyle: {\n        track: {\n          bg: \"#271E37\",\n          _checked: { bg: \"#5227FF\" },\n          _focus: { boxShadow: \"0 0 0 3px #271E37\" },\n          _active: { bg: \"#5227FF\" },\n        },\n        thumb: {\n          _checked: { bg: \"white\" },\n          _active: { bg: \"white\" },\n        },\n      },\n    },\n  },\n\n  recipes: {\n    drawer: drawerRecipe,\n    tabs: tabsRecipe,\n  },\n});\n",
+    "fileSize": 1912
+  },
+  "analysis": {
+    "dependencies": [
+      "@chakra-ui/react"
+    ],
+    "exports": [
+      "toastStyles",
+      "customTheme"
+    ],
+    "imports": [
+      {
+        "statement": "{\n  createSystem,\n  defaultConfig,\n  defineSlotRecipe,\n}",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      }
+    ],
+    "hooks": [
+      "useSystemColorMode"
+    ],
+    "features": [
+      "animated"
+    ],
+    "complexity": {
+      "level": "simple",
+      "score": 15,
+      "metrics": {
+        "lines": 102,
+        "dependencies": 1,
+        "hooks": 1,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": true
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

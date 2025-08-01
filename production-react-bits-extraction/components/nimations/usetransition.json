@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "name": "UseTransition",
+    "category": "nimations",
+    "variant": "js-css",
+    "priority": 7,
+    "extractedAt": "2025-08-01T16:32:51.778Z"
+  },
+  "source": {
+    "filePath": "src/hooks/useTransition.js",
+    "sourceCode": "import { useContext } from 'react';\nimport { TransitionContext } from '../components/context/TransitionContext/TransitionContext';\n\nexport const useTransition = () => {\n  const context = useContext(TransitionContext);\n  if (!context) {\n    throw new Error('useTransition must be used within a TransitionProvider');\n  }\n  return context;\n};\n",
+    "fileSize": 340
+  },
+  "analysis": {
+    "dependencies": [
+      "react",
+      "../components/context/TransitionContext/TransitionContext"
+    ],
+    "exports": [
+      "useTransition"
+    ],
+    "imports": [
+      {
+        "statement": "{ useContext }",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ TransitionContext }",
+        "from": "../components/context/TransitionContext/TransitionContext",
+        "isExternal": false
+      }
+    ],
+    "hooks": [
+      "useContext",
+      "useTransition"
+    ],
+    "features": [
+      "context-aware"
+    ],
+    "complexity": {
+      "level": "simple",
+      "score": 19,
+      "metrics": {
+        "lines": 11,
+        "dependencies": 2,
+        "hooks": 4,
+        "conditionals": 1
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

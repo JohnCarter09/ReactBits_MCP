@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "name": "CodeExample",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:04.202Z"
+  },
+  "source": {
+    "filePath": "src/components/code/CodeExample.jsx",
+    "sourceCode": "import { getLanguage } from \"../../utils/utils\";\nimport CodeHighlighter from \"./CodeHighlighter\";\nimport CodeOptions, {\n  CSSTab,\n  TailwindTab,\n  TSCSSTab,\n  TSTailwindTab,\n} from \"./CodeOptions\";\n\nconst CodeExample = ({ codeObject }) => (\n  <>\n    {Object.entries(codeObject).map(([name, snippet]) => {\n      const skip = [\n        \"tailwind\",\n        \"css\",\n        \"tsTailwind\",\n        \"tsCode\",\n        \"cliDefault\",\n        \"cliTailwind\",\n        \"cliTsTailwind\",\n        \"cliTsDefault\",\n      ];\n      if (skip.includes(name)) return null;\n\n      if (name === \"code\" || name === \"tsCode\") {\n        return (\n          <div key={name}>\n            <h2 className=\"demo-title\">{name}</h2>\n\n            <CodeOptions>\n              <TailwindTab>\n                <CodeHighlighter language=\"jsx\" codeString={codeObject.tailwind} />\n              </TailwindTab>\n\n              <CSSTab>\n                <CodeHighlighter language=\"jsx\" codeString={codeObject.code} />\n                {codeObject.css && (\n                  <>\n                    <h2 className=\"demo-title\">CSS</h2>\n                    <CodeHighlighter language=\"css\" codeString={codeObject.css} />\n                  </>\n                )}\n              </CSSTab>\n\n              {codeObject.tsTailwind && (\n                <TSTailwindTab>\n                  <CodeHighlighter language=\"tsx\" codeString={codeObject.tsTailwind} />\n                </TSTailwindTab>\n              )}\n\n              {codeObject.tsCode && (\n                <TSCSSTab>\n                  <CodeHighlighter language=\"tsx\" codeString={codeObject.tsCode} />\n                  {codeObject.css && (\n                    <>\n                      <h2 className=\"demo-title\">CSS</h2>\n                      <CodeHighlighter language=\"css\" codeString={codeObject.css} />\n                    </>\n                  )}\n                </TSCSSTab>\n              )}\n            </CodeOptions>\n          </div>\n        );\n      }\n\n      return (\n        <div key={name}>\n          <h2 className=\"demo-title\">{name}</h2>\n          <CodeHighlighter language={getLanguage(name)} codeString={snippet} />\n        </div>\n      );\n    })}\n  </>\n);\n\nexport default CodeExample;\n",
+    "fileSize": 2189
+  },
+  "analysis": {
+    "dependencies": [
+      "../../utils/utils",
+      "./CodeHighlighter",
+      "./CodeOptions"
+    ],
+    "exports": [
+      "CodeExample"
+    ],
+    "imports": [
+      {
+        "statement": "{ getLanguage }",
+        "from": "../../utils/utils",
+        "isExternal": false
+      },
+      {
+        "statement": "CodeHighlighter",
+        "from": "./CodeHighlighter",
+        "isExternal": false
+      },
+      {
+        "statement": "CodeOptions, {\n  CSSTab,\n  TailwindTab,\n  TSCSSTab,\n  TSTailwindTab,\n}",
+        "from": "./CodeOptions",
+        "isExternal": false
+      }
+    ],
+    "hooks": [],
+    "features": [],
+    "complexity": {
+      "level": "simple",
+      "score": 17,
+      "metrics": {
+        "lines": 78,
+        "dependencies": 3,
+        "hooks": 0,
+        "conditionals": 2
+      }
+    },
+    "stylingApproach": [
+      "tailwind",
+      "css-in-js"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

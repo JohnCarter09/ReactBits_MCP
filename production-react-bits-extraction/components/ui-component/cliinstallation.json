@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "name": "CliInstallation",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:00.076Z"
+  },
+  "source": {
+    "filePath": "src/components/code/CliInstallation.jsx",
+    "sourceCode": "import { Box, Text, Separator, Accordion } from \"@chakra-ui/react\";\nimport CodeHighlighter from \"./CodeHighlighter\";\n\nconst CliInstallation = ({\n  cliDefault,\n  cliTailwind,\n  cliTsDefault,\n  cliTsTailwind,\n}) => {\n  const installConfigs = [\n    { title: \"JS + CSS\", code: cliDefault },\n    { title: \"JS + Tailwind\", code: cliTailwind },\n    { title: \"TS + CSS\", code: cliTsDefault },\n    { title: \"TS + Tailwind\", code: cliTsTailwind },\n  ].filter(({ code }) => code);\n\n  return (\n    <Box>\n      <Text as=\"h2\" className=\"demo-title\" color={\"#B19EEF\"}>\n        One-Time Installation\n      </Text>\n\n      {installConfigs.map(({ title, code }) => (\n        <Box key={title} mb={6}>\n          <Text\n            mb={0}\n            fontWeight=\"600\"\n            fontSize=\"1.4rem\"\n            color=\"#a6a6a6\"\n            className=\"demo-title-extra\"\n          >\n            {title}\n          </Text>\n          <CodeHighlighter language=\"bash\" codeString={code} />\n        </Box>\n      ))}\n\n      <Box className=\"cli-divider\" my={8} />\n\n      <Text as=\"h2\" className=\"demo-title\" color={\"#B19EEF\"}>\n        Full CLI Setup\n      </Text>\n      <Text className=\"jsrepo-info\" mb={4} mt={4} color=\"#a1a1aa\" fontSize=\"sm\">\n        React Bits uses{\" \"}\n        <a href=\"https://jsrepo.dev/\" target=\"_blank\" rel=\"noreferrer\">\n          jsrepo\n        </a>{\" \"}\n        to help you install components via CLI— you can set it up project-wide following the steps below.\n      </Text>\n\n      <Accordion.Root type=\"single\" collapsible defaultValue=\"setup\">\n        <Accordion.Item\n          value=\"setup\"\n          bg=\"#060010\"\n          border=\"1px solid #392e4e\"\n          borderRadius=\"20px\"\n        >\n          <Accordion.ItemTrigger pb={4} px={6}>\n            <Box flex=\"1\" textAlign=\"left\" className=\"demo-title\" fontSize=\"1rem\">\n              Setup Steps\n            </Box>\n            <Accordion.ItemIndicator pt=\"0.6em\" />\n          </Accordion.ItemTrigger>\n\n          <Accordion.ItemContent px={6} pb={1}>\n            <Text className=\"demo-extra-info\">\n              1. Initialize a config file for your project\n            </Text>\n\n            {[\n              { label: \"JavaScript (Default)\", path: \"default\" },\n              { label: \"JavaScript (Tailwind)\", path: \"tailwind\" },\n              { label: \"TypeScript (Default)\", path: \"ts/default\" },\n              { label: \"TypeScript (Tailwind)\", path: \"ts/tailwind\" },\n            ].map(({ label, path }) => (\n              <Box key={path} mb={4}>\n                <Text className=\"demo-extra-info\">{label}</Text>\n                <CodeHighlighter\n                  language=\"bash\"\n                  codeString={`npx jsrepo init https://reactbits.dev/${path}`}\n                />\n              </Box>\n            ))}\n\n            <Separator my={8} borderWidth='1px' borderColor=\"#392e4e\" />\n\n            <Text className=\"demo-extra-info\">\n              2. Browse &amp; add components from the list\n            </Text>\n            <CodeHighlighter language=\"bash\" codeString=\"npx jsrepo add\" />\n\n            <Text className=\"demo-extra-info\" mt={6}>\n              3. Or just add a specific component\n            </Text>\n            <CodeHighlighter\n              language=\"bash\"\n              codeString=\"npx jsrepo add Animations/AnimatedContent\"\n            />\n          </Accordion.ItemContent>\n        </Accordion.Item>\n      </Accordion.Root>\n    </Box>\n  );\n};\n\nexport default CliInstallation;\n",
+    "fileSize": 3442
+  },
+  "analysis": {
+    "dependencies": [
+      "@chakra-ui/react",
+      "./CodeHighlighter"
+    ],
+    "exports": [
+      "CliInstallation"
+    ],
+    "imports": [
+      {
+        "statement": "{ Box, Text, Separator, Accordion }",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      },
+      {
+        "statement": "CodeHighlighter",
+        "from": "./CodeHighlighter",
+        "isExternal": false
+      }
+    ],
+    "hooks": [],
+    "features": [],
+    "complexity": {
+      "level": "simple",
+      "score": 15,
+      "metrics": {
+        "lines": 107,
+        "dependencies": 2,
+        "hooks": 0,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "tailwind",
+      "css-in-js"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

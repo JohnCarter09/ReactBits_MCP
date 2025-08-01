@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "name": "Main",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:00.051Z"
+  },
+  "source": {
+    "filePath": "src/main.jsx",
+    "sourceCode": "import ReactDOM from 'react-dom/client'\nimport App from './App.jsx'\nimport './styles.css'\n\nimport { Provider } from \"@/components/setup/provider\"\nimport { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';\n\nReactDOM.createRoot(document.createElement('div')).render(\n  // eslint-disable-next-line react/no-children-prop\n  <SyntaxHighlighter language=\"\" children={''} />\n)\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <Provider>\n    <App />\n  </Provider>,\n)\n",
+    "fileSize": 486
+  },
+  "analysis": {
+    "dependencies": [
+      "react-dom/client",
+      "./App.jsx",
+      "@/components/setup/provider",
+      "react-syntax-highlighter"
+    ],
+    "exports": [],
+    "imports": [
+      {
+        "statement": "ReactDOM",
+        "from": "react-dom/client",
+        "isExternal": true
+      },
+      {
+        "statement": "App",
+        "from": "./App.jsx",
+        "isExternal": false
+      },
+      {
+        "statement": "{ Provider }",
+        "from": "@/components/setup/provider",
+        "isExternal": true
+      },
+      {
+        "statement": "{ Prism as SyntaxHighlighter }",
+        "from": "react-syntax-highlighter",
+        "isExternal": true
+      }
+    ],
+    "hooks": [],
+    "features": [],
+    "complexity": {
+      "level": "simple",
+      "score": 12,
+      "metrics": {
+        "lines": 18,
+        "dependencies": 5,
+        "hooks": 0,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

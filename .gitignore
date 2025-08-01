@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs (keep for distribution but ignore dev builds)
+# dist/ - keeping dist for now as it contains compiled production code
+
+# Environment variables and secrets
+.env
+.env.test
+.env.production
+.env.local
+*.key
+*.pem
+*.p12
+config/secrets.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory
+coverage/
+*.lcov
+.nyc_output/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# npm cache
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache/
+.parcel-cache/
+
+# System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Cache directories - keep important cache files but ignore temporary ones
+scraper-cache/cache-*
+scraper-cache/*.tmp
+!scraper-cache/*.json
+!scraper-cache/*.md
+
+# API keys and sensitive data
+**/config/api-keys.json
+**/secrets/
+**/.credentials/
+MCP_config.json
+**/config.json

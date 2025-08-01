@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "name": "UseScrollVisibility",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:33.532Z"
+  },
+  "source": {
+    "filePath": "src/hooks/useScrollVisibility.js",
+    "sourceCode": "import { useEffect, useState } from \"react\";\n\nexport const useScrollVisibility = () => {\n  const [isVisible, setIsVisible] = useState(true);\n\n  useEffect(() => {\n    window.scrollTo({ top: 0, behavior: \"smooth\" });\n    const handleScroll = () => {\n      setIsVisible(window.scrollY <= 50);\n    };\n    window.addEventListener(\"scroll\", handleScroll);\n    return () => window.removeEventListener(\"scroll\", handleScroll);\n  }, []);\n\n  return isVisible;\n};",
+    "fileSize": 452
+  },
+  "analysis": {
+    "dependencies": [
+      "react"
+    ],
+    "exports": [
+      "useScrollVisibility"
+    ],
+    "imports": [
+      {
+        "statement": "{ useEffect, useState }",
+        "from": "react",
+        "isExternal": true
+      }
+    ],
+    "hooks": [
+      "useEffect",
+      "useState",
+      "useScrollVisibility"
+    ],
+    "features": [
+      "stateful",
+      "side-effects"
+    ],
+    "complexity": {
+      "level": "simple",
+      "score": 19,
+      "metrics": {
+        "lines": 16,
+        "dependencies": 1,
+        "hooks": 5,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

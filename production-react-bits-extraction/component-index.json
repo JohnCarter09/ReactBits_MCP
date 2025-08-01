@@ -1,0 +1,240 @@
+[
+  {
+    "name": "AnimationUtils",
+    "category": "nimations",
+    "variant": "js-css",
+    "priority": 7,
+    "filePath": "src/utils/animationUtils.js",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "UseTransition",
+    "category": "nimations",
+    "variant": "js-css",
+    "priority": 7,
+    "filePath": "src/hooks/useTransition.js",
+    "features": [
+      "context-aware"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "Vite.Config",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "vite.config.js",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "App",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/App.jsx",
+    "features": [
+      "side-effects"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "Main",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/main.jsx",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "CliInstallation",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/code/CliInstallation.jsx",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "CodeExample",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/code/CodeExample.jsx",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "CodeHighlighter",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/code/CodeHighlighter.jsx",
+    "features": [
+      "stateful",
+      "animated",
+      "interactive"
+    ],
+    "hasAnimation": true
+  },
+  {
+    "name": "CodeOptions",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/code/CodeOptions.jsx",
+    "features": [
+      "performance-optimized",
+      "portal-based"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "Dependencies",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/code/Dependencies.jsx",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "TabbedLayout",
+    "category": "avigation",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/common/TabbedLayout.jsx",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "Header",
+    "category": "avigation",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/navs/Header.jsx",
+    "features": [
+      "performance-optimized",
+      "animated",
+      "interactive",
+      "portal-based"
+    ],
+    "hasAnimation": true
+  },
+  {
+    "name": "Sidebar",
+    "category": "avigation",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/navs/Sidebar.jsx",
+    "features": [
+      "stateful",
+      "side-effects",
+      "performance-optimized",
+      "animated",
+      "interactive"
+    ],
+    "hasAnimation": true
+  },
+  {
+    "name": "Color Mode",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/setup/color-mode.jsx",
+    "features": [
+      "ref-forwarding",
+      "interactive"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "Provider",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/setup/provider.jsx",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "Toaster",
+    "category": "eedback",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/setup/toaster.jsx",
+    "features": [
+      "portal-based"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "Tooltip",
+    "category": "eedback",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/components/setup/tooltip.jsx",
+    "features": [
+      "ref-forwarding",
+      "portal-based"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "CustomTheme",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/utils/customTheme.js",
+    "features": [
+      "animated"
+    ],
+    "hasAnimation": true
+  },
+  {
+    "name": "Utils",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/utils/utils.js",
+    "features": [],
+    "hasAnimation": false
+  },
+  {
+    "name": "UseForceRerender",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/hooks/useForceRerender.js",
+    "features": [
+      "stateful",
+      "performance-optimized"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "UseScrollVisibility",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/hooks/useScrollVisibility.js",
+    "features": [
+      "stateful",
+      "side-effects"
+    ],
+    "hasAnimation": false
+  },
+  {
+    "name": "UseStars",
+    "category": "ui-component",
+    "variant": "js-css",
+    "priority": 1,
+    "filePath": "src/hooks/useStars.js",
+    "features": [
+      "stateful"
+    ],
+    "hasAnimation": false
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "name": "Toaster",
+    "category": "eedback",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:21.142Z"
+  },
+  "source": {
+    "filePath": "src/components/setup/toaster.jsx",
+    "sourceCode": "\"use client\"\n\nimport {\n  Toaster as ChakraToaster,\n  Portal,\n  Spinner,\n  Stack,\n  Toast,\n  createToaster,\n} from \"@chakra-ui/react\"\n\n// eslint-disable-next-line react-refresh/only-export-components\nexport const toaster = createToaster({\n  placement: \"bottom-end\",\n  pauseOnPageIdle: true,\n})\n\nexport const Toaster = () => {\n  return (\n    <Portal>\n      <ChakraToaster toaster={toaster} insetInline={{ mdDown: \"4\" }}>\n        {(toast) => (\n          <Toast.Root width={{ md: \"sm\" }}>\n            {toast.type === \"loading\" ? (\n              <Spinner size=\"sm\" color=\"blue.solid\" />\n            ) : (\n              <Toast.Indicator />\n            )}\n            <Stack gap=\"1\" flex=\"1\" maxWidth=\"100%\">\n              {toast.title && <Toast.Title>{toast.title}</Toast.Title>}\n              {toast.description && (\n                <Toast.Description>{toast.description}</Toast.Description>\n              )}\n            </Stack>\n            {toast.action && (\n              <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>\n            )}\n            {toast.closable && <Toast.CloseTrigger />}\n          </Toast.Root>\n        )}\n      </ChakraToaster>\n    </Portal>\n  )\n}\n",
+    "fileSize": 1182
+  },
+  "analysis": {
+    "dependencies": [
+      "@chakra-ui/react"
+    ],
+    "exports": [
+      "toaster",
+      "Toaster"
+    ],
+    "imports": [
+      {
+        "statement": "{\n  Toaster as ChakraToaster,\n  Portal,\n  Spinner,\n  Stack,\n  Toast,\n  createToaster,\n}",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      }
+    ],
+    "hooks": [
+      "useOnPageIdle"
+    ],
+    "features": [
+      "portal-based"
+    ],
+    "complexity": {
+      "level": "simple",
+      "score": 10,
+      "metrics": {
+        "lines": 45,
+        "dependencies": 1,
+        "hooks": 1,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-classes"
+    ],
+    "hasAnimation": false
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

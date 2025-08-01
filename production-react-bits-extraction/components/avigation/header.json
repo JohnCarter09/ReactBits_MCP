@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "name": "Header",
+    "category": "avigation",
+    "variant": "js-css",
+    "priority": 1,
+    "extractedAt": "2025-08-01T16:33:12.654Z"
+  },
+  "source": {
+    "filePath": "src/components/navs/Header.jsx",
+    "sourceCode": "import { useRef, useMemo } from \"react\";\nimport { Link as RouterLink } from \"react-router-dom\";\n\nimport {\n  Box,\n  Drawer,\n  Flex,\n  Icon,\n  IconButton,\n  Image,\n  Kbd,\n  Portal,\n  Select,\n  Separator,\n  Text,\n  useDisclosure,\n  createListCollection,\n} from \"@chakra-ui/react\";\n\nimport { FiArrowRight, FiCommand, FiMenu, FiSearch, FiStopCircle } from \"react-icons/fi\";\n\nimport { useStars } from \"../../hooks/useStars\";\nimport { useDeviceOS } from \"react-haiku\";\nimport { useSearch } from \"../context/SearchContext/useSearch\";\nimport { useLanguage } from \"../context/LanguageContext/useLanguage\";\n\nimport Logo from \"../../assets/logos/react-bits-logo.svg\";\nimport Star from \"../../assets/common/star.svg\";\nimport FadeContent from \"../../content/Animations/FadeContent/FadeContent\";\n\nconst Header = () => {\n  const langCollection = useMemo(() => createListCollection({ items: [\"JS\", \"TS\"] }), []);\n  const { languagePreset, setLanguagePreset } = useLanguage(); // “JS” | “TS”\n  const { isOpen, onOpen, onClose } = useDisclosure();\n  const { toggleSearch } = useSearch();\n  const stars = useStars();\n  const starCountRef = useRef(null);\n  const os = useDeviceOS();\n\n  const LanguageSelect = (\n    <Select.Root\n      collection={langCollection}\n      value={[languagePreset]}\n      onValueChange={({ value }) => setLanguagePreset(value[0])}\n      size=\"sm\"\n      width=\"80px\"\n    >\n      <Select.HiddenSelect name=\"language\" />\n\n      <Select.Control>\n        <Select.Trigger\n          fontSize=\"12px\"\n          bg=\"#060010\"\n          border=\"1px solid #392e4e\"\n          rounded=\"full\"\n          h={10}\n          fontWeight={600}\n          cursor=\"pointer\"\n          transition=\"transform 0.3s\"\n          _hover={{ transform: \"scale(0.98)\" }}\n        >\n          <Select.ValueText color=\"#fff\" pl={1} fontSize=\"12px\" />\n        </Select.Trigger>\n        <Select.IndicatorGroup>\n          <Select.Indicator />\n        </Select.IndicatorGroup>\n      </Select.Control>\n\n      <Portal>\n        <Select.Positioner>\n          <Select.Content\n            bg=\"#060010\"\n            border=\"1px solid #392e4e\"\n            borderRadius=\"25px\"\n            w=\"80px\"\n            px={2}\n            py={2}\n            zIndex=\"modal\"\n          >\n            {langCollection.items.map((lang) => (\n              <Select.Item\n                item={lang}\n                key={lang}\n                rounded=\"full\"\n                px={3}\n                py={2}\n                cursor=\"pointer\"\n                _highlighted={{ bg: \"#271E37\" }}\n              >\n                {lang}\n                <Select.ItemIndicator />\n              </Select.Item>\n            ))}\n          </Select.Content>\n        </Select.Positioner>\n      </Portal>\n    </Select.Root>\n  );\n\n  return (\n    <Box zIndex={100} className=\"main-nav\">\n      <Flex className=\"nav-items\" h={20} alignItems=\"center\" justifyContent=\"space-between\" px={4}>\n        <RouterLink to=\"/\" className=\"logo\">\n          <Image src={Logo} alt=\"Logo\" className=\"cursor-target\"/>\n        </RouterLink>\n\n        <IconButton\n          aria-label=\"Open Menu\"\n          icon={<FiMenu size=\"1.3em\" />}\n          size=\"md\"\n          display={{ md: \"none\" }}\n          onClick={onOpen}\n        />\n\n        <Flex display={{ base: \"none\", md: \"flex\" }} alignItems=\"center\" gap={2}>\n          <FadeContent blur>\n            <Flex\n              as=\"button\"\n              fontSize=\"12px\"\n              h={10}\n              pr={2}\n              pl={3}\n              rounded=\"full\"\n              bg=\"#060010\"\n              border=\"1px solid #392e4e\"\n              fontWeight={600}\n              align=\"center\"\n              gap={1}\n              cursor=\"text\"\n              userSelect=\"none\"\n              transition=\"transform 0.3s\"\n              _hover={{ transform: \"scale(0.98)\" }}\n              onClick={toggleSearch}\n            >\n              <Icon as={FiSearch} boxSize={4} color=\"#392e4e\" />\n              <Text mr={8} color=\"#a6a6a6\">Search Docs</Text>\n              {os === \"macOS\" ? <Kbd fontSize=\"10px\" px={2} borderRadius=\"50px\"><Icon as={FiCommand} boxSize={2} mr={1} /> K</Kbd> : <Kbd fontSize=\"10px\" px={2} borderRadius=\"50px\">CTRL K</Kbd>}\n            </Flex>\n          </FadeContent>\n\n          <FadeContent blur>{LanguageSelect}</FadeContent>\n\n          <FadeContent blur>\n            <button\n              className=\"cta-button-docs\"\n              onClick={() =>\n                window.open(\"https://github.com/DavidHDev/react-bits\", \"_blank\")\n              }\n            >\n              Star On GitHub\n              <span ref={starCountRef}>\n                <img src={Star} alt=\"Star Icon\" />\n                {stars}\n              </span>\n            </button>\n          </FadeContent>\n        </Flex>\n      </Flex>\n\n      <Drawer.Root\n        placement=\"top\"\n        open={isOpen}\n        onOpenChange={(v) => (v ? onOpen() : onClose())}\n      >\n        <Drawer.Backdrop display={{ md: \"none\" }}>\n          <Drawer.Content bg=\"black\" h=\"100%\">\n            <Drawer.Body p={0}>\n              <Flex direction=\"column\">\n                <Flex\n                  align=\"center\"\n                  justify=\"space-between\"\n                  h=\"57px\"\n                  px={6}\n                  mb={6}\n                  borderBottom=\"1px solid #ffffff1c\"\n                >\n                  <Image src={Logo} alt=\"Logo\" h=\"25px\" />\n                  <IconButton\n                    aria-label=\"Close Menu\"\n                    icon={<Icon as={FiStopCircle} boxSize={4} />}\n                    size=\"md\"\n                    display={{ md: \"none\" }}\n                    onClick={onClose}\n                  />\n                </Flex>\n\n                <Flex direction=\"column\" px={6} gap={2}>\n                  <Text fontWeight=\"bold\">Useful Links</Text>\n                  <RouterLink to=\"/text-animations/split-text\" onClick={onClose}>\n                    Docs\n                  </RouterLink>\n                  <RouterLink\n                    to=\"https://github.com/DavidHDev/react-bits\"\n                    target=\"_blank\"\n                    onClick={onClose}\n                  >\n                    GitHub <Icon as={FiArrowRight} transform=\"rotate(-45deg)\" ml={1} />\n                  </RouterLink>\n\n                  <Separator my={4} />\n\n                  <Text fontWeight=\"bold\">Other</Text>\n                  <RouterLink\n                    to=\"https://davidhaz.com/\"\n                    target=\"_blank\"\n                    onClick={onClose}\n                  >\n                    Who made this?\n                    <Icon as={FiArrowRight} transform=\"rotate(-45deg)\" ml={1} />\n                  </RouterLink>\n                </Flex>\n              </Flex>\n            </Drawer.Body>\n          </Drawer.Content>\n        </Drawer.Backdrop>\n      </Drawer.Root>\n    </Box>\n  );\n};\n\nexport default Header;\n",
+    "fileSize": 6839
+  },
+  "analysis": {
+    "dependencies": [
+      "react",
+      "react-router-dom",
+      "@chakra-ui/react",
+      "react-icons/fi",
+      "../../hooks/useStars",
+      "react-haiku",
+      "../context/SearchContext/useSearch",
+      "../context/LanguageContext/useLanguage",
+      "../../assets/logos/react-bits-logo.svg",
+      "../../assets/common/star.svg",
+      "../../content/Animations/FadeContent/FadeContent"
+    ],
+    "exports": [
+      "Header"
+    ],
+    "imports": [
+      {
+        "statement": "{ useRef, useMemo }",
+        "from": "react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ Link as RouterLink }",
+        "from": "react-router-dom",
+        "isExternal": true
+      },
+      {
+        "statement": "{\n  Box,\n  Drawer,\n  Flex,\n  Icon,\n  IconButton,\n  Image,\n  Kbd,\n  Portal,\n  Select,\n  Separator,\n  Text,\n  useDisclosure,\n  createListCollection,\n}",
+        "from": "@chakra-ui/react",
+        "isExternal": true
+      },
+      {
+        "statement": "{ FiArrowRight, FiCommand, FiMenu, FiSearch, FiStopCircle }",
+        "from": "react-icons/fi",
+        "isExternal": true
+      },
+      {
+        "statement": "{ useStars }",
+        "from": "../../hooks/useStars",
+        "isExternal": false
+      },
+      {
+        "statement": "{ useDeviceOS }",
+        "from": "react-haiku",
+        "isExternal": true
+      },
+      {
+        "statement": "{ useSearch }",
+        "from": "../context/SearchContext/useSearch",
+        "isExternal": false
+      },
+      {
+        "statement": "{ useLanguage }",
+        "from": "../context/LanguageContext/useLanguage",
+        "isExternal": false
+      },
+      {
+        "statement": "Logo",
+        "from": "../../assets/logos/react-bits-logo.svg",
+        "isExternal": false
+      },
+      {
+        "statement": "Star",
+        "from": "../../assets/common/star.svg",
+        "isExternal": false
+      },
+      {
+        "statement": "FadeContent",
+        "from": "../../content/Animations/FadeContent/FadeContent",
+        "isExternal": false
+      }
+    ],
+    "hooks": [
+      "useRef",
+      "useMemo",
+      "useDisclosure",
+      "useStars",
+      "useDeviceOS",
+      "useSearch",
+      "useLanguage"
+    ],
+    "features": [
+      "performance-optimized",
+      "animated",
+      "interactive",
+      "portal-based"
+    ],
+    "complexity": {
+      "level": "complex",
+      "score": 95,
+      "metrics": {
+        "lines": 222,
+        "dependencies": 11,
+        "hooks": 17,
+        "conditionals": 0
+      }
+    },
+    "stylingApproach": [
+      "css-in-js"
+    ],
+    "hasAnimation": true
+  },
+  "types": {
+    "definitions": [],
+    "propsInterface": []
+  }
+}

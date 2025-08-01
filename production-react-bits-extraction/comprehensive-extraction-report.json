@@ -1,0 +1,298 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "extractorType": "production",
+    "repository": "https://github.com/DavidHDev/react-bits",
+    "extractedAt": "2025-08-01T16:35:13.022Z",
+    "duration": "218s",
+    "outputDirectory": "./production-react-bits-extraction"
+  },
+  "statistics": {
+    "execution": {
+      "totalFiles": 22,
+      "extractedFiles": 22,
+      "failedFiles": 0,
+      "successRate": "100%",
+      "utilitiesExtracted": 0
+    },
+    "components": {
+      "total": 22,
+      "categories": [
+        "ui-component",
+        "avigation",
+        "eedback",
+        "nimations"
+      ],
+      "variants": [
+        "js-css"
+      ],
+      "byCategory": {
+        "nimations": 2,
+        "ui-component": 15,
+        "avigation": 3,
+        "eedback": 2
+      },
+      "byVariant": {
+        "js-css": 22
+      },
+      "byPriority": {
+        "high": 0,
+        "medium": 2,
+        "low": 20
+      }
+    },
+    "analysis": {
+      "averageFileSize": 2393,
+      "averageComplexity": 33,
+      "mostUsedDependencies": [
+        {
+          "dependency": "react",
+          "count": 12
+        },
+        {
+          "dependency": "@chakra-ui/react",
+          "count": 12
+        },
+        {
+          "dependency": "react-icons/fi",
+          "count": 5
+        },
+        {
+          "dependency": "react-router-dom",
+          "count": 3
+        },
+        {
+          "dependency": "react-syntax-highlighter",
+          "count": 2
+        },
+        {
+          "dependency": "./CodeHighlighter",
+          "count": 2
+        },
+        {
+          "dependency": "react-icons/ri",
+          "count": 2
+        },
+        {
+          "dependency": "../context/LanguageContext/useLanguage",
+          "count": 2
+        },
+        {
+          "dependency": "react-haiku",
+          "count": 2
+        },
+        {
+          "dependency": "../context/SearchContext/useSearch",
+          "count": 2
+        }
+      ],
+      "stylingApproaches": {
+        "css-classes": 14,
+        "tailwind": 5,
+        "css-in-js": 5
+      },
+      "animatedComponents": 4
+    }
+  },
+  "extraction": {
+    "repositoryStructure": [
+      {
+        "path": "root",
+        "itemCount": 17
+      },
+      {
+        "path": "src",
+        "itemCount": 18
+      },
+      {
+        "path": "src/components",
+        "itemCount": 6
+      },
+      {
+        "path": "src/components/code",
+        "itemCount": 5
+      },
+      {
+        "path": "src/components/common",
+        "itemCount": 4
+      },
+      {
+        "path": "src/components/context",
+        "itemCount": 3
+      },
+      {
+        "path": "src/components/landing",
+        "itemCount": 7
+      },
+      {
+        "path": "src/components/navs",
+        "itemCount": 2
+      },
+      {
+        "path": "src/components/setup",
+        "itemCount": 4
+      },
+      {
+        "path": "src/utils",
+        "itemCount": 3
+      },
+      {
+        "path": "src/hooks",
+        "itemCount": 4
+      }
+    ],
+    "priorityComponents": [],
+    "websiteData": {
+      "title": "React Bits - Animated UI Components For React",
+      "description": "An open source collection of high quality, animated, interactive & fully customizable React components for building stunning, memorable user interfaces.",
+      "componentCount": null,
+      "categories": [],
+      "scrapedAt": "2025-08-01T16:33:35.825Z"
+    },
+    "errors": []
+  },
+  "recommendations": [
+    {
+      "type": "success",
+      "message": "Excellent extraction rate: 100% of components successfully extracted"
+    },
+    {
+      "type": "highlight",
+      "message": "4 components with animation features - excellent for creating engaging UIs"
+    }
+  ],
+  "outputFiles": [
+    {
+      "name": "header.json",
+      "path": "production-react-bits-extraction/components/avigation/header.json",
+      "size": 10209,
+      "type": ".json"
+    },
+    {
+      "name": "sidebar.json",
+      "path": "production-react-bits-extraction/components/avigation/sidebar.json",
+      "size": 18563,
+      "type": ".json"
+    },
+    {
+      "name": "tabbedlayout.json",
+      "path": "production-react-bits-extraction/components/avigation/tabbedlayout.json",
+      "size": 4046,
+      "type": ".json"
+    },
+    {
+      "name": "toaster.json",
+      "path": "production-react-bits-extraction/components/eedback/toaster.json",
+      "size": 2305,
+      "type": ".json"
+    },
+    {
+      "name": "tooltip.json",
+      "path": "production-react-bits-extraction/components/eedback/tooltip.json",
+      "size": 2125,
+      "type": ".json"
+    },
+    {
+      "name": "animationutils.json",
+      "path": "production-react-bits-extraction/components/nimations/animationutils.json",
+      "size": 1413,
+      "type": ".json"
+    },
+    {
+      "name": "usetransition.json",
+      "path": "production-react-bits-extraction/components/nimations/usetransition.json",
+      "size": 1551,
+      "type": ".json"
+    },
+    {
+      "name": "app.json",
+      "path": "production-react-bits-extraction/components/ui-component/app.json",
+      "size": 5811,
+      "type": ".json"
+    },
+    {
+      "name": "cliinstallation.json",
+      "path": "production-react-bits-extraction/components/ui-component/cliinstallation.json",
+      "size": 4780,
+      "type": ".json"
+    },
+    {
+      "name": "codeexample.json",
+      "path": "production-react-bits-extraction/components/ui-component/codeexample.json",
+      "size": 3605,
+      "type": ".json"
+    },
+    {
+      "name": "codehighlighter.json",
+      "path": "production-react-bits-extraction/components/ui-component/codehighlighter.json",
+      "size": 5341,
+      "type": ".json"
+    },
+    {
+      "name": "codeoptions.json",
+      "path": "production-react-bits-extraction/components/ui-component/codeoptions.json",
+      "size": 6124,
+      "type": ".json"
+    },
+    {
+      "name": "color-mode.json",
+      "path": "production-react-bits-extraction/components/ui-component/color-mode.json",
+      "size": 3944,
+      "type": ".json"
+    },
+    {
+      "name": "customtheme.json",
+      "path": "production-react-bits-extraction/components/ui-component/customtheme.json",
+      "size": 3124,
+      "type": ".json"
+    },
+    {
+      "name": "dependencies.json",
+      "path": "production-react-bits-extraction/components/ui-component/dependencies.json",
+      "size": 1319,
+      "type": ".json"
+    },
+    {
+      "name": "main.json",
+      "path": "production-react-bits-extraction/components/ui-component/main.json",
+      "size": 1831,
+      "type": ".json"
+    },
+    {
+      "name": "provider.json",
+      "path": "production-react-bits-extraction/components/ui-component/provider.json",
+      "size": 1572,
+      "type": ".json"
+    },
+    {
+      "name": "useforcererender.json",
+      "path": "production-react-bits-extraction/components/ui-component/useforcererender.json",
+      "size": 1328,
+      "type": ".json"
+    },
+    {
+      "name": "usescrollvisibility.json",
+      "path": "production-react-bits-extraction/components/ui-component/usescrollvisibility.json",
+      "size": 1511,
+      "type": ".json"
+    },
+    {
+      "name": "usestars.json",
+      "path": "production-react-bits-extraction/components/ui-component/usestars.json",
+      "size": 2537,
+      "type": ".json"
+    },
+    {
+      "name": "utils.json",
+      "path": "production-react-bits-extraction/components/ui-component/utils.json",
+      "size": 2628,
+      "type": ".json"
+    },
+    {
+      "name": "vite.config.json",
+      "path": "production-react-bits-extraction/components/ui-component/vite.config.json",
+      "size": 2421,
+      "type": ".json"
+    }
+  ]
+}

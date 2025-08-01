@@ -1,0 +1,244 @@
+{
+  "extractionSummary": {
+    "timestamp": "2025-08-01T15:34:09.682Z",
+    "repositoryUrl": "https://github.com/DavidHDev/react-bits",
+    "extractionDuration": "41.85 seconds",
+    "totalRequests": 46,
+    "status": "complete"
+  },
+  "repositoryOverview": {
+    "name": "react-bits",
+    "fullName": "DavidHDev/react-bits",
+    "description": "An open source collection of animated, interactive & fully customizable React components for building stunning, memorable websites.",
+    "stars": 20122,
+    "forks": 783,
+    "language": "JavaScript",
+    "homepage": "https://reactbits.dev",
+    "createdAt": "2024-08-06T06:54:54Z",
+    "updatedAt": "2025-08-01T02:21:27Z",
+    "license": "Other"
+  },
+  "architecturalFindings": {
+    "4VariantSystemDiscovery": {
+      "implemented": true,
+      "variantTypes": ["js-css", "js-tailwind", "ts-css", "ts-tailwind"],
+      "distribution": {
+        "js-css": {"count": 1, "percentage": "5.0%"},
+        "js-tailwind": {"count": 19, "percentage": "95.0%"},
+        "ts-css": {"count": 0, "percentage": "0.0%"},
+        "ts-tailwind": {"count": 0, "percentage": "0.0%"}
+      },
+      "dominantVariant": "js-tailwind",
+      "templateSystem": "Uses ?raw imports to load variants as string templates"
+    },
+    "repositoryStructure": {
+      "totalFiles": 884,
+      "componentFiles": 653,
+      "organizationPattern": "Standard React Project Structure",
+      "namingConvention": "PascalCase",
+      "keyDirectories": [
+        "src/components/",
+        "src/constants/code/",
+        "src/content/",
+        "src/demo/"
+      ]
+    },
+    "technologyStack": {
+      "primaryLanguage": "JavaScript (52%)",
+      "typescript": "23%",
+      "cssFiles": 174,
+      "buildTool": "Vite",
+      "styling": "Tailwind CSS + Traditional CSS",
+      "animationLibraries": ["GSAP", "Framer Motion", "Three.js"]
+    }
+  },
+  "extractedComponents": {
+    "animationComponents": [
+      {
+        "name": "animatedContentCode.js",
+        "path": "src/constants/code/Animations/animatedContentCode.js",
+        "features": ["GSAP-powered animations", "customizable easing", "threshold-based triggers"],
+        "props": ["distance", "direction", "reverse", "duration", "ease", "initialOpacity", "animateOpacity", "scale", "threshold", "delay"],
+        "installation": "npm install gsap",
+        "variantSupport": ["code", "tailwind", "tsCode", "tsTailwind"]
+      },
+      {
+        "name": "blobCursorCode.js",
+        "path": "src/constants/code/Animations/blobCursorCode.js",
+        "features": ["Interactive blob cursor effects", "Real-time mouse tracking"]
+      },
+      {
+        "name": "clickSparkCode.js", 
+        "path": "src/constants/code/Animations/clickSparkCode.js",
+        "features": ["Click interaction animations", "Canvas-based effects"]
+      },
+      {
+        "name": "crosshairCode.js",
+        "path": "src/constants/code/Animations/crosshairCode.js", 
+        "features": ["Custom cursor implementations"]
+      },
+      {
+        "name": "cubesCode.js",
+        "path": "src/constants/code/Animations/cubesCode.js",
+        "features": ["3D cube animations", "Three.js integration"]
+      }
+    ],
+    "uiComponents": [
+      {
+        "name": "BackToTopButton.jsx",
+        "path": "src/components/common/Misc/BackToTopButton.jsx",
+        "features": ["Scroll-to-top functionality", "Toast notifications", "Animated visibility"],
+        "dependencies": ["@chakra-ui/react", "react-icons/fi", "sonner"],
+        "hooks": ["useState", "useEffect"],
+        "lines": 58,
+        "variant": "js-tailwind",
+        "hasTypeScript": false
+      },
+      {
+        "name": "StartBuilding.jsx",
+        "path": "src/components/landing/StartBuilding/StartBuilding.jsx",
+        "features": ["Call-to-action component"]
+      }
+    ],
+    "contextComponents": [
+      {
+        "name": "LanguageContext.jsx",
+        "path": "src/components/context/LanguageContext/LanguageContext.jsx",
+        "features": ["Internationalization context", "Language switching"]
+      },
+      {
+        "name": "SearchContext.jsx", 
+        "path": "src/components/context/SearchContext/SearchContext.jsx",
+        "features": ["Search functionality context", "Search state management"]
+      },
+      {
+        "name": "TransitionContext.jsx",
+        "path": "src/components/context/TransitionContext/TransitionContext.jsx",
+        "features": ["Page transition management"]
+      }
+    ],
+    "backgroundComponents": [
+      {
+        "name": "liquidChromeCode.js",
+        "path": "src/constants/code/Backgrounds/liquidChromeCode.js",
+        "features": ["Chrome-like liquid backgrounds", "GPU-accelerated transforms"]
+      },
+      {
+        "name": "fluidGlassCode.js",
+        "path": "src/constants/code/Components/fluidGlassCode.js", 
+        "features": ["Glassmorphism effects"]
+      }
+    ],
+    "cardComponents": [
+      {
+        "name": "bounceCardsCode.js",
+        "path": "src/constants/code/Components/bounceCardsCode.js",
+        "features": ["Bounce animation cards"]
+      },
+      {
+        "name": "cardSwapCode.js",
+        "path": "src/constants/code/Components/cardSwapCode.js",
+        "features": ["Card transition effects"]
+      },
+      {
+        "name": "decayCardCode.js",
+        "path": "src/constants/code/Components/decayCardCode.js",
+        "features": ["Decay animation patterns"]
+      },
+      {
+        "name": "pixelCardCode.js",
+        "path": "src/constants/code/Components/pixelCardCode.js",
+        "features": ["Pixel art style cards"]
+      }
+    ]
+  },
+  "implementationPatterns": {
+    "variantManagement": {
+      "pattern": "Template-based code generation",
+      "example": {
+        "structure": "export const componentName = { ...(generateCliCommands('Category/ComponentName')), installation: 'npm install dependencies', usage: '<ComponentName prop=\"value\" />', code, tailwind, tsCode, tsTailwind }",
+        "imports": "Uses ?raw suffix to load source code as strings"
+      }
+    },
+    "componentStructure": {
+      "pattern": "Standard React functional components with hooks",
+      "example": "const Component = ({ prop1 = defaultValue, prop2, ...otherProps }) => { return (<div className=\"component-wrapper\" {...otherProps}>{/* Component content */}</div>); };"
+    },
+    "stylingApproaches": {
+      "tailwind": {
+        "usage": "95% of components",
+        "example": "className=\"bg-gradient-to-r from-blue-500 to-purple-600 p-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300\""
+      },
+      "traditionalCSS": {
+        "usage": "5% of components", 
+        "example": "className=\"component-card\" with external CSS imports"
+      }
+    },
+    "propsCustomization": {
+      "pattern": "Extensive prop-based customization",
+      "example": {
+        "component": "AnimatedContent",
+        "props": ["distance={150}", "direction=\"horizontal\"", "reverse={false}", "duration={1.2}", "ease=\"bounce.out\"", "initialOpacity={0.2}", "animateOpacity", "scale={1.1}", "threshold={0.2}", "delay={0.3}"]
+      }
+    }
+  },
+  "configurationFiles": {
+    "packageJson": {
+      "dependencies": ["React", "Vite", "Tailwind CSS", "GSAP", "Framer Motion", "Three.js", "Chakra UI"]
+    },
+    "typescriptConfig": {
+      "target": "ES2020",
+      "module": "ESNext", 
+      "jsx": "react-jsx",
+      "strictMode": true
+    },
+    "viteConfig": {
+      "plugins": ["React", "alias resolution"],
+      "optimizations": ["Code splitting", "asset optimization"],
+      "development": "Hot module replacement"
+    }
+  },
+  "keyInnovations": {
+    "4VariantSystem": "Systematic approach to providing 4 variants of each component for different developer preferences",
+    "animationFirst": "Heavy focus on animations and interactions using professional-grade libraries",
+    "templateBasedGeneration": "Intelligent system for generating component variants while maintaining consistency",
+    "realTimePreview": "Integrated preview components allow live customization and testing"
+  },
+  "usageRecommendations": {
+    "forDevelopers": [
+      "Start with js-tailwind variants for rapid prototyping",
+      "Migrate to ts-tailwind for production applications", 
+      "Customize props extensively to match design requirements",
+      "Leverage animation capabilities for enhanced UX"
+    ],
+    "forTeams": [
+      "Establish variant standards across projects",
+      "Create component libraries based on React Bits patterns",
+      "Implement similar preview systems for internal tools",
+      "Adopt the 4-variant approach for better developer flexibility"
+    ],
+    "bestUseCases": [
+      "Marketing websites requiring high visual impact",
+      "Dashboard applications with rich interactions",
+      "Component libraries needing multiple implementation options",
+      "Prototyping with quick customization needs"
+    ]
+  },
+  "scrapingMetadata": {
+    "antiDetectionMeasures": [
+      "Rotating user agents",
+      "Proper request headers",
+      "Rate limiting (1.5s between requests)",
+      "Intelligent caching with TTL",
+      "Retry logic with exponential backoff"
+    ],
+    "extractionStrategies": [
+      "Raw GitHub URLs for direct file access",
+      "GitHub API calls for repository metadata", 
+      "DOM parsing for complex structures",
+      "Multi-fallback approaches"
+    ],
+    "cacheEfficiency": "46 total requests across 41.85 seconds",
+    "ethicalCompliance": "Respected rate limits and robots.txt guidelines"
+  }
+}
