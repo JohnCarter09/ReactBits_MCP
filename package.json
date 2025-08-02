@@ -1,5 +1,5 @@
 {
-  "name": "@johncarter09/reactbits-mcp-server",
+  "name": "reactbits-mcp-tools",
   "version": "1.0.0",
   "description": "Model Context Protocol server for ReactBits component library with comprehensive TypeScript build system and real data integration",
   "type": "module",
@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "postbuild": "chmod +x dist/index.js",
     "start": "node dist/index.js",
     "dev": "tsx --watch src/index.ts",
     "typecheck": "tsc --noEmit",
