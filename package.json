@@ -1,6 +1,6 @@
 {
   "name": "reactbits-mcp-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Model Context Protocol server for ReactBits component library with comprehensive TypeScript build system and real data integration",
   "type": "module",
   "main": "dist/index.js",
